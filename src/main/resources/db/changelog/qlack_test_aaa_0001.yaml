@@ -377,15 +377,15 @@ databaseChangeLog:
                   value: datamanager1
               - column:
                   name: pswd
-                  value:
-              - column:
-                  name: salt
-                  value:
+                  value: $2a$10$Rz5eaBgYPZXLRcturffwcOfntaoQqIX21X.D6Z1ZHmKPf8EetE9Z6
               - column:
                   name: status
                   value: 1
               - column:
                   name: superadmin
+                  valueBoolean: false
+              - column:
+                  name: external
                   valueBoolean: false
               - column:
                   name: dbversion
@@ -478,15 +478,15 @@ databaseChangeLog:
                   value: searchuser
               - column:
                   name: pswd
-                  value:
-              - column:
-                  name: salt
-                  value:
+                  value: $2a$10$Rz5eaBgYPZXLRcturffwcOfntaoQqIX21X.D6Z1ZHmKPf8EetE9Z6
               - column:
                   name: status
                   value: 1
               - column:
                   name: superadmin
+                  valueBoolean: false
+              - column:
+                  name: external
                   valueBoolean: false
               - column:
                   name: dbversion
@@ -579,15 +579,15 @@ databaseChangeLog:
                   value: admin
               - column:
                   name: pswd
-                  value:
-              - column:
-                  name: salt
-                  value:
+                  value: $2a$10$Rz5eaBgYPZXLRcturffwcOfntaoQqIX21X.D6Z1ZHmKPf8EetE9Z6
               - column:
                   name: status
                   value: 1
               - column:
                   name: superadmin
+                  valueBoolean: false
+              - column:
+                  name: external
                   valueBoolean: false
               - column:
                   name: dbversion
