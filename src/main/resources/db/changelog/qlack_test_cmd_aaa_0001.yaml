@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: wapis_db_0003
+      id: qlack_test_aaa_0001
       author: Ioannis K. Mousmoutis
       changes:
         # Operations: CRUD + Administration

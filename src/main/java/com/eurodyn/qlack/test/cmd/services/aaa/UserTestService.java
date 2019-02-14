@@ -1,4 +1,4 @@
-package com.eurodyn.qlack.test.services.aaa;
+package com.eurodyn.qlack.test.cmd.services.aaa;
 
 import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
