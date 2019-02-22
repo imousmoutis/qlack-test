@@ -6,5 +6,6 @@
 
     <include file="db/changelog/qlack.fuse.aaa.changelog.xml"/>
     <include file="db/changelog/qlack.fuse.audit.changelog.xml"/>
+    <include file="db/changelog/qlack.fuse.settings.changelog.xml"/>
     <include file="db/changelog/qlack_test_cmd_aaa_0001.yaml"/>
 </databaseChangeLog>

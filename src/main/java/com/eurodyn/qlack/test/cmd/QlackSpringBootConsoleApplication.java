@@ -3,6 +3,7 @@ package com.eurodyn.qlack.test.cmd;
 import com.eurodyn.qlack.test.cmd.services.aaa.UserServiceTest;
 import com.eurodyn.qlack.test.cmd.services.audit.AuditLevelServiceTest;
 import com.eurodyn.qlack.test.cmd.services.audit.AuditServiceTest;
+import com.eurodyn.qlack.test.cmd.services.settings.SettingsServiceTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
@@ -19,16 +20,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableCaching
 @EnableJpaRepositories({
         "com.eurodyn.qlack.fuse.aaa.repository",
-        "com.eurodyn.qlack.fuse.audit.repository"
+        "com.eurodyn.qlack.fuse.audit.repository",
+        "com.eurodyn.qlack.fuse.settings.repository",
 })
 @EntityScan({
         "com.eurodyn.qlack.fuse.aaa.model",
-        "com.eurodyn.qlack.fuse.audit.model"
+        "com.eurodyn.qlack.fuse.audit.model",
+        "com.eurodyn.qlack.fuse.settings.model",
 })
 @ComponentScan(basePackages = {
         "com.eurodyn.qlack.test.cmd.services",
         "com.eurodyn.qlack.fuse.aaa.*",
         "com.eurodyn.qlack.fuse.audit.*",
+        "com.eurodyn.qlack.fuse.settings.*",
 })
 public class QlackSpringBootConsoleApplication implements CommandLineRunner {
 
@@ -40,6 +44,9 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
 
     @Autowired
     private AuditLevelServiceTest auditLevelServiceTest;
+
+    @Autowired
+    private SettingsServiceTest settingsServiceTest;
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(QlackSpringBootConsoleApplication.class);
@@ -66,6 +73,10 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
                     auditLevelServiceTest.getAuditLevelByName();
                     auditServiceTest.audit();
                     auditServiceTest.getAuditLogs();
+                    break;
+                case "SettingsService":
+                    settingsServiceTest.createSetting();
+                    settingsServiceTest.getSettings();
                     break;
                 default: System.out.println("Service " +args[0]+ " is not found :(");
             }
