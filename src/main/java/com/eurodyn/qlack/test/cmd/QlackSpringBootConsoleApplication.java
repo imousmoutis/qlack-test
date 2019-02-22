@@ -3,6 +3,7 @@ package com.eurodyn.qlack.test.cmd;
 import com.eurodyn.qlack.test.cmd.services.aaa.UserServiceTest;
 import com.eurodyn.qlack.test.cmd.services.audit.AuditLevelServiceTest;
 import com.eurodyn.qlack.test.cmd.services.audit.AuditServiceTest;
+import com.eurodyn.qlack.test.cmd.services.mailing.InternalMessageServiceTest;
 import com.eurodyn.qlack.test.cmd.services.mailing.MailServiceTest;
 import com.eurodyn.qlack.test.cmd.services.settings.SettingsServiceTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,9 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
     @Autowired
     private MailServiceTest mailServiceTest;
 
+    @Autowired
+    private InternalMessageServiceTest internalMessageServiceTest;
+
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(QlackSpringBootConsoleApplication.class);
         app.setBannerMode(Banner.Mode.OFF);
@@ -87,6 +91,7 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
                     break;
                 case "MailService":
                     mailServiceTest.queueEmail();
+                    internalMessageServiceTest.sendInternalMail();
                     break;
                 default: System.out.println("Service " +args[0]+ " is not found :(");
             }
