@@ -3,6 +3,7 @@ package com.eurodyn.qlack.test.cmd;
 import com.eurodyn.qlack.test.cmd.services.aaa.UserServiceTest;
 import com.eurodyn.qlack.test.cmd.services.audit.AuditLevelServiceTest;
 import com.eurodyn.qlack.test.cmd.services.audit.AuditServiceTest;
+import com.eurodyn.qlack.test.cmd.services.mailing.MailServiceTest;
 import com.eurodyn.qlack.test.cmd.services.settings.SettingsServiceTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -21,18 +22,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableJpaRepositories({
         "com.eurodyn.qlack.fuse.aaa.repository",
         "com.eurodyn.qlack.fuse.audit.repository",
-        "com.eurodyn.qlack.fuse.settings.repository",
+        "com.eurodyn.qlack.fuse.mailing.repository",
+        "com.eurodyn.qlack.fuse.settings.repository"
 })
 @EntityScan({
         "com.eurodyn.qlack.fuse.aaa.model",
         "com.eurodyn.qlack.fuse.audit.model",
-        "com.eurodyn.qlack.fuse.settings.model",
+        "com.eurodyn.qlack.fuse.mailing.model",
+        "com.eurodyn.qlack.fuse.settings.model"
 })
 @ComponentScan(basePackages = {
         "com.eurodyn.qlack.test.cmd.services",
         "com.eurodyn.qlack.fuse.aaa.*",
         "com.eurodyn.qlack.fuse.audit.*",
-        "com.eurodyn.qlack.fuse.settings.*",
+        "com.eurodyn.qlack.fuse.mailing.*",
+        "com.eurodyn.qlack.fuse.settings.*"
 })
 public class QlackSpringBootConsoleApplication implements CommandLineRunner {
 
@@ -47,6 +51,9 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
 
     @Autowired
     private SettingsServiceTest settingsServiceTest;
+
+    @Autowired
+    private MailServiceTest mailServiceTest;
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(QlackSpringBootConsoleApplication.class);
@@ -77,6 +84,9 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
                 case "SettingsService":
                     settingsServiceTest.createSetting();
                     settingsServiceTest.getSettings();
+                    break;
+                case "MailService":
+                    mailServiceTest.queueEmail();
                     break;
                 default: System.out.println("Service " +args[0]+ " is not found :(");
             }
