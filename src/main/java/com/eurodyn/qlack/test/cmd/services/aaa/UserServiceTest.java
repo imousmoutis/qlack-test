@@ -2,7 +2,6 @@ package com.eurodyn.qlack.test.cmd.services.aaa;
 
 import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
-import com.eurodyn.qlack.fuse.aaa.model.UserAttribute;
 import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
-public class UserTestService {
+public class UserServiceTest {
 
     private final UserService userService;
 
@@ -21,7 +20,7 @@ public class UserTestService {
     private final UserDTO userDTO = createUserDTO();
 
     @Autowired
-    public UserTestService(UserService userServiceService) {
+    public UserServiceTest(UserService userServiceService) {
         this.userService = userServiceService;
     }
 
@@ -43,6 +42,8 @@ public class UserTestService {
         System.out.println("******************");
         System.out.println("Testing updateUser method.");
         UserDTO existingUser = userService.getUserByName(USERNAME);
+
+        existingUser.setPassword("newpassword");
 
         existingUser.setSuperadmin(false);
         for (UserAttributeDTO u: existingUser.getUserAttributes()){
