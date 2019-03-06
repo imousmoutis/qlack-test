@@ -1,12 +1,11 @@
 package com.eurodyn.qlack.test.cmd.services.audit;
 
+import com.eurodyn.qlack.common.exceptions.QAlreadyExistsException;
 import com.eurodyn.qlack.fuse.audit.dto.AuditLevelDTO;
-import com.eurodyn.qlack.fuse.audit.exceptions.AlreadyExistsException;
 import com.eurodyn.qlack.fuse.audit.service.AuditLevelService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AuditLevelServiceTest {
@@ -27,7 +26,7 @@ public class AuditLevelServiceTest {
         try{
             String levelId = auditLevelService.addLevelIfNotExists(auditLevelDTO);
             System.out.println("AuditLevel with id " +levelId+ " has been created.");
-        } catch (AlreadyExistsException e){
+        } catch (QAlreadyExistsException e){
             System.out.println(e.getMessage());
         }
 

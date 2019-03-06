@@ -35,6 +35,11 @@
         </dependency>
         <dependency>
             <groupId>com.eurodyn.qlack.fuse</groupId>
+            <artifactId>qlack-fuse-lexicon</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eurodyn.qlack.fuse</groupId>
             <artifactId>qlack-fuse-mailing</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
