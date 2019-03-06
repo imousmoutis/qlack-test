@@ -1,5 +1,6 @@
 package com.eurodyn.qlack.test.cmd.services.lexicon;
 
+import com.eurodyn.qlack.common.exceptions.QAlreadyExistsException;
 import com.eurodyn.qlack.fuse.lexicon.dto.KeyDTO;
 import com.eurodyn.qlack.fuse.lexicon.service.GroupService;
 import com.eurodyn.qlack.fuse.lexicon.service.KeyService;
@@ -31,8 +32,12 @@ public class KeyServiceTest {
     public void createKey() {
         System.out.println("******************");
         System.out.println("Testing createKey method.");
-        String key = keyService.createKey(createKeyDTO(), false);
-        System.out.println("Created key with id:" + key);
+        try {
+            String key = keyService.createKey(createKeyDTO(), false);
+            System.out.println("Created key with id:" + key);
+        } catch (QAlreadyExistsException e){
+            System.out.println(e.getMessage());
+        }
         System.out.println("******************");
     }
 
