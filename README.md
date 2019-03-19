@@ -9,6 +9,7 @@ This application tests the following [QLACK](https://github.com/eurodyn/QLACK) m
 - qlack-fuse-settings
 
 In order to run the application, run `java -jar qlack-test-cmd-1.0-SNAPSHOT.jar` adding one of the following arguments:
+
 | Module              | Argument        |
 |---------------------|-----------------|
 | qlack-fuse-aaa      | UserService     |
