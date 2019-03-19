@@ -1,6 +1,6 @@
 package com.eurodyn.qlack.test.cmd.services.audit;
 
-import com.eurodyn.qlack.common.exceptions.QAlreadyExistsException;
+import com.eurodyn.qlack.common.exception.QAlreadyExistsException;
 import com.eurodyn.qlack.fuse.audit.dto.AuditLevelDTO;
 import com.eurodyn.qlack.fuse.audit.service.AuditLevelService;
 import java.util.List;
