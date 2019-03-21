@@ -7,6 +7,9 @@ import com.eurodyn.qlack.test.cmd.services.lexicon.KeyServiceTest;
 import com.eurodyn.qlack.test.cmd.services.lexicon.LanguageServiceTest;
 import com.eurodyn.qlack.test.cmd.services.mailing.InternalMessageServiceTest;
 import com.eurodyn.qlack.test.cmd.services.mailing.MailServiceTest;
+import com.eurodyn.qlack.test.cmd.services.search.AdminServiceTest;
+import com.eurodyn.qlack.test.cmd.services.search.IndexingServiceTest;
+import com.eurodyn.qlack.test.cmd.services.search.SearchServiceTest;
 import com.eurodyn.qlack.test.cmd.services.settings.SettingsServiceTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -17,33 +20,44 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 @EnableCaching
 @EnableJpaRepositories({
-        "com.eurodyn.qlack.fuse.aaa.repository",
-        "com.eurodyn.qlack.fuse.audit.repository",
-        "com.eurodyn.qlack.fuse.lexicon.repository",
-        "com.eurodyn.qlack.fuse.mailing.repository",
-        "com.eurodyn.qlack.fuse.settings.repository"
+    "com.eurodyn.qlack.fuse.aaa.repository",
+    "com.eurodyn.qlack.fuse.audit.repository",
+    "com.eurodyn.qlack.fuse.lexicon.repository",
+    "com.eurodyn.qlack.fuse.mailing.repository",
+    "com.eurodyn.qlack.fuse.settings.repository",
+    "com.eurodyn.qlack.fuse.search",
+    "com.eurodyn.qlack.test.cmd.repository"
 })
 @EntityScan({
-        "com.eurodyn.qlack.fuse.aaa.model",
-        "com.eurodyn.qlack.fuse.audit.model",
-        "com.eurodyn.qlack.fuse.lexicon.model",
-        "com.eurodyn.qlack.fuse.mailing.model",
-        "com.eurodyn.qlack.fuse.settings.model"
+    "com.eurodyn.qlack.fuse.aaa.model",
+    "com.eurodyn.qlack.fuse.audit.model",
+    "com.eurodyn.qlack.fuse.lexicon.model",
+    "com.eurodyn.qlack.fuse.mailing.model",
+    "com.eurodyn.qlack.fuse.settings.model",
+    "com.eurodyn.qlack.test.cmd.model"
 })
 @ComponentScan(basePackages = {
-        "com.eurodyn.qlack.test.cmd.services",
-        "com.eurodyn.qlack.fuse.aaa",
-        "com.eurodyn.qlack.fuse.audit",
-        "com.eurodyn.qlack.fuse.lexicon",
-        "com.eurodyn.qlack.fuse.mailing",
-        "com.eurodyn.qlack.fuse.settings"
+    "com.eurodyn.qlack.test.cmd.services",
+    "com.eurodyn.qlack.fuse.aaa",
+    "com.eurodyn.qlack.fuse.audit",
+    "com.eurodyn.qlack.fuse.lexicon",
+    "com.eurodyn.qlack.fuse.mailing",
+    "com.eurodyn.qlack.fuse.settings",
+    "com.eurodyn.qlack.fuse.search",
+    "com.eurodyn.qlack.test.cmd"
 })
+
+@EnableElasticsearchRepositories({
+    "com.eurodyn.qlack.test.cmd.repository"
+})
+
 public class QlackSpringBootConsoleApplication implements CommandLineRunner {
 
     @Autowired
@@ -70,6 +84,15 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
     @Autowired
     private KeyServiceTest keyServiceTest;
 
+    @Autowired
+    private AdminServiceTest adminServiceTest;
+
+    @Autowired
+    private IndexingServiceTest indexingServiceTest;
+
+    @Autowired
+    private SearchServiceTest searchServiceTest;
+
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(QlackSpringBootConsoleApplication.class);
         app.setBannerMode(Banner.Mode.OFF);
@@ -78,11 +101,11 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
 
     public void run(String... args) {
 
-        if (args.length == 0){
+        if (args.length == 0) {
             System.out.println("Please provide the service name you want to test as the first argument.");
-        } else{
+        } else {
 
-            switch (args[0]){
+            switch (args[0]) {
                 case "UserService":
                     userServiceTest.createUser();
                     userServiceTest.updateUser();
@@ -112,7 +135,25 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
                     keyServiceTest.createKey();
                     keyServiceTest.getTranslationsForLocale();
                     break;
-                default: System.out.println("Service " +args[0]+ " is not found :(");
+                case "SearchService":
+                    if(adminServiceTest.checkIsUp()) {
+                        adminServiceTest.createIndex();
+                        adminServiceTest.openAndCloseIndex();
+
+                        indexingServiceTest.indexDocument();
+                        indexingServiceTest.indexByRepo();
+
+                        indexingServiceTest.deleteFromRepo();
+                        indexingServiceTest.unindexDocument();
+
+                        searchServiceTest.searchUsingRepository();
+                        searchServiceTest.searchQueryRange();
+                    } else {
+                        System.out.println("Elastic cluster is down.");
+                    }
+                    break;
+                default:
+                    System.out.println("Service " + args[0] + " is not found :(");
             }
         }
     }

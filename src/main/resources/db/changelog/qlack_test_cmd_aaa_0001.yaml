@@ -668,3 +668,102 @@ databaseChangeLog:
               - column:
                   name: user_group_id
                   value: fdaf47a0-463d-4a9a-a1f2-70898f57ea70
+        - createTable:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: age
+                  type: int
+                  constraints:
+                    nullable: false
+        - insert:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  value: 349d1d2b-a26d-4ed1-9b85-9009d596942a
+              - column:
+                  name: first_name
+                  value: Michael
+              - column:
+                  name: last_name
+                  value: Scott
+              - column:
+                  name: age
+                  value: 35
+        - insert:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  value: d1278f33-3656-42d4-8085-2352c96ae234
+              - column:
+                  name: first_name
+                  value: Dwight
+              - column:
+                  name: last_name
+                  value: Schrute
+              - column:
+                  name: age
+                  value: 30
+        - insert:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  value: b1348f33-3656-42d4-8085-2352c96ae234
+              - column:
+                  name: first_name
+                  value: Jim
+              - column:
+                  name: last_name
+                  value: Halpert
+              - column:
+                  name: age
+                  value: 30
+        - insert:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  value: c2348f33-3656-42d4-8085-2352c96ae123
+              - column:
+                  name: first_name
+                  value: Pam
+              - column:
+                  name: last_name
+                  value: Beasley
+              - column:
+                  name: age
+                  value: 28
+        - insert:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  value: a6348f33-3656-12d4-1111-1252c96ae000
+              - column:
+                  name: first_name
+                  value: Jim
+              - column:
+                  name: last_name
+                  value: Morisson
+              - column:
+                  name: age
+                  value: 27

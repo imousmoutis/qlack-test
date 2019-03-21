@@ -1,0 +1,34 @@
+{
+   "employee":{
+      "dynamic": false,
+      "properties":{
+         "firstName":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword"
+               }
+            }
+         },
+         "lastName":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword"
+               }
+            }
+         },
+         "id":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword"
+               }
+            }
+         },
+         "age":{
+            "type":"long"
+         }
+      }
+   }
+}
