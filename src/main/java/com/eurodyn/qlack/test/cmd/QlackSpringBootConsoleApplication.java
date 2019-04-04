@@ -7,6 +7,7 @@ import com.eurodyn.qlack.test.cmd.services.lexicon.KeyServiceTest;
 import com.eurodyn.qlack.test.cmd.services.lexicon.LanguageServiceTest;
 import com.eurodyn.qlack.test.cmd.services.mailing.InternalMessageServiceTest;
 import com.eurodyn.qlack.test.cmd.services.mailing.MailServiceTest;
+import com.eurodyn.qlack.test.cmd.services.scheduler.SchedulerServiceTest;
 import com.eurodyn.qlack.test.cmd.services.search.AdminServiceTest;
 import com.eurodyn.qlack.test.cmd.services.search.IndexingServiceTest;
 import com.eurodyn.qlack.test.cmd.services.search.SearchServiceTest;
@@ -32,7 +33,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
     "com.eurodyn.qlack.fuse.lexicon.repository",
     "com.eurodyn.qlack.fuse.mailing.repository",
     "com.eurodyn.qlack.fuse.settings.repository",
-    "com.eurodyn.qlack.fuse.search",
     "com.eurodyn.qlack.test.cmd.repository"
 })
 @EntityScan({
@@ -44,13 +44,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
     "com.eurodyn.qlack.test.cmd.model"
 })
 @ComponentScan(basePackages = {
-    "com.eurodyn.qlack.test.cmd.services",
     "com.eurodyn.qlack.fuse.aaa",
     "com.eurodyn.qlack.fuse.audit",
     "com.eurodyn.qlack.fuse.lexicon",
     "com.eurodyn.qlack.fuse.mailing",
     "com.eurodyn.qlack.fuse.settings",
     "com.eurodyn.qlack.fuse.search",
+    "com.eurodyn.qlack.fuse.scheduler",
     "com.eurodyn.qlack.test.cmd"
 })
 
@@ -92,6 +92,9 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
 
     @Autowired
     private SearchServiceTest searchServiceTest;
+
+    @Autowired
+    private SchedulerServiceTest schedulerServiceTest;
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(QlackSpringBootConsoleApplication.class);
@@ -151,6 +154,12 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
                     } else {
                         System.out.println("Elastic cluster is down.");
                     }
+                    break;
+                case "ScheduleService":
+                    schedulerServiceTest.listAllJobs();
+                    schedulerServiceTest.scheduleJobs();
+                    schedulerServiceTest.triggerJob();
+                    schedulerServiceTest.deleteJob();
                     break;
                 default:
                     System.out.println("Service " + args[0] + " is not found :(");
