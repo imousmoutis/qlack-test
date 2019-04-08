@@ -3,12 +3,11 @@ package com.eurodyn.qlack.test.cmd.services.aaa;
 import com.eurodyn.qlack.fuse.aaa.dto.UserAttributeDTO;
 import com.eurodyn.qlack.fuse.aaa.dto.UserDTO;
 import com.eurodyn.qlack.fuse.aaa.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceTest {
@@ -24,21 +23,21 @@ public class UserServiceTest {
         this.userService = userServiceService;
     }
 
-    public void createUser(){
+    public void createUser() {
         System.out.println("******************");
         System.out.println("Testing createUser method.");
         UserDTO existingUser = userService.getUserByName(USERNAME);
 
-        if (existingUser == null){
+        if (existingUser == null) {
             String userId = userService.createUser(userDTO);
-            System.out.println("User with id " +userId+ " has been created.");
+            System.out.println("User with id " + userId + " has been created.");
         } else {
-            System.out.println("User " +USERNAME+ " already exists.");
+            System.out.println("User " + USERNAME + " already exists.");
         }
         System.out.println("******************");
     }
 
-    public void updateUser(){
+    public void updateUser() {
         System.out.println("******************");
         System.out.println("Testing updateUser method.");
         UserDTO existingUser = userService.getUserByName(USERNAME);
@@ -46,10 +45,10 @@ public class UserServiceTest {
         existingUser.setPassword("newpassword");
 
         existingUser.setSuperadmin(false);
-        for (UserAttributeDTO u: existingUser.getUserAttributes()){
-            u.setData("updated " +u.getData());
+        for (UserAttributeDTO u : existingUser.getUserAttributes()) {
+            u.setData("updated " + u.getData());
         }
-        if(existingUser.getUserAttributes().size() == 2){
+        if (existingUser.getUserAttributes().size() == 2) {
             UserAttributeDTO userAttributeDTO = new UserAttributeDTO();
             userAttributeDTO.setName("email");
             userAttributeDTO.setData("ioannis.mousmoutis@eurodyn.com");
@@ -57,12 +56,12 @@ public class UserServiceTest {
             existingUser.getUserAttributes().add(userAttributeDTO);
         }
 
-        userService.updateUser(existingUser, false, true);
+        userService.updateUser(existingUser, true, true);
         System.out.println("User is updated.");
         System.out.println("******************");
     }
 
-    public void deleteUser(){
+    public void deleteUser() {
         System.out.println("******************");
         System.out.println("Testing deleteUser method.");
 
@@ -73,29 +72,29 @@ public class UserServiceTest {
         System.out.println("******************");
     }
 
-    private void getUserById(String userId){
+    private void getUserById(String userId) {
         System.out.println("******************");
         System.out.println("Testing getUserById method.");
 
         UserDTO existingUser = userService.getUserById(userId);
 
-        System.out.println("Found user is " +existingUser.getUsername());
+        System.out.println("Found user is " + existingUser.getUsername());
         System.out.println("******************");
     }
 
-    public void getUserByName(){
+    public void getUserByName() {
         System.out.println("******************");
         System.out.println("Testing getUserByName method.");
 
         UserDTO existingUser = userService.getUserByName(USERNAME);
 
-        System.out.println("Found user is " +existingUser.getUsername());
+        System.out.println("Found user is " + existingUser.getUsername());
 
         System.out.println("******************");
         getUserById(existingUser.getId());
     }
 
-    private List<UserAttributeDTO> createUserAttributesDTO(){
+    private List<UserAttributeDTO> createUserAttributesDTO() {
         List<UserAttributeDTO> userAttributesDTO = new ArrayList<>();
 
         UserAttributeDTO userAttributeDTO = new UserAttributeDTO();
@@ -113,11 +112,11 @@ public class UserServiceTest {
         return userAttributesDTO;
     }
 
-    private UserDTO createUserDTO(){
+    private UserDTO createUserDTO() {
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername(USERNAME);
         userDTO.setPassword("thisisaverysecurepassword");
-        userDTO.setStatus((byte)1);
+        userDTO.setStatus((byte) 1);
         userDTO.setSuperadmin(true);
         userDTO.setExternal(false);
         userDTO.setUserAttributes(new HashSet<>(createUserAttributesDTO()));

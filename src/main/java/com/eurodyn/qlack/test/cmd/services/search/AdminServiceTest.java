@@ -4,6 +4,7 @@ import com.eurodyn.qlack.fuse.search.request.CreateIndexRequest;
 import com.eurodyn.qlack.fuse.search.service.AdminService;
 import com.eurodyn.qlack.test.cmd.dto.EmployeeDTO;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -45,7 +46,7 @@ public class AdminServiceTest {
         Path resourceDirectory = Paths.get("src/main/resources/employee.json");
 
         try {
-            String mapping = new String(Files.readAllBytes(resourceDirectory), "UTF-8");
+            String mapping = new String(Files.readAllBytes(resourceDirectory), StandardCharsets.UTF_8);
             createIndexRequest.setIndexMapping(mapping);
         } catch (IOException e) {
             e.printStackTrace();

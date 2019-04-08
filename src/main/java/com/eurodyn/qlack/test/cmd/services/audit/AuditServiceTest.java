@@ -21,34 +21,34 @@ public class AuditServiceTest {
         this.auditService = auditService;
     }
 
-    public void audit(){
+    public void audit() {
         System.out.println("******************");
         System.out.println("Testing audit method.");
 
         String auditId = auditService.audit(auditDTO);
-        System.out.println("Audit with id " +auditId+ " has been created.");
+        System.out.println("Audit with id " + auditId + " has been created.");
 
         System.out.println("******************");
     }
 
-    public void getAuditLogs(){
+    public void getAuditLogs() {
         System.out.println("******************");
         System.out.println("Testing getAuditLogs method.");
 
-        Page<AuditDTO> audits = auditService.getAuditLogs((Pageable)PageRequest.of(0, 10), null);
-        System.out.println("Found "+audits.getTotalElements()+" audits.");
+        Page<AuditDTO> audits = auditService.getAuditLogs(PageRequest.of(0, 10), null);
+        System.out.println("Found " + audits.getTotalElements() + " audits.");
 
         deleteAudit(audits.get().findFirst().get().getId());
 
         System.out.println("******************");
     }
 
-    private void deleteAudit(String auditId){
+    private void deleteAudit(String auditId) {
         System.out.println("******************");
         System.out.println("Testing deleteAudit method.");
 
         auditService.deleteAudit(auditId);
-        System.out.println("Audit with id "+auditId+" is deleted.");
+        System.out.println("Audit with id " + auditId + " is deleted.");
 
         System.out.println("******************");
     }
@@ -56,13 +56,13 @@ public class AuditServiceTest {
     private AuditTraceDTO createAuditTraceDTO() {
         AuditTraceDTO auditTraceDTO = new AuditTraceDTO();
         auditTraceDTO.setTraceData("{\n" +
-                "\tcolor: \"red\",\n" +
-                "\tvalue: \"#f00\"\n" +
-                "}");
+            "\tcolor: \"red\",\n" +
+            "\tvalue: \"#f00\"\n" +
+            "}");
         return auditTraceDTO;
     }
 
-    private AuditDTO createAuditDTO(){
+    private AuditDTO createAuditDTO() {
         AuditDTO auditDTO = new AuditDTO();
         auditDTO.setLevel("Back End");
         auditDTO.setEvent("System Check");

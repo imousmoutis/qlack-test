@@ -1,19 +1,17 @@
 package com.eurodyn.qlack.test.cmd.services.mailing;
 
-import com.eurodyn.qlack.fuse.mailing.dto.AttachmentDTO;
 import com.eurodyn.qlack.fuse.mailing.dto.InternalAttachmentDTO;
 import com.eurodyn.qlack.fuse.mailing.dto.InternalMessageDTO;
 import com.eurodyn.qlack.fuse.mailing.service.InternalMessageService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class InternalMessageServiceTest {
@@ -25,17 +23,17 @@ public class InternalMessageServiceTest {
         this.internalMessageService = internalMessageService;
     }
 
-    public void sendInternalMail(){
+    public void sendInternalMail() {
         System.out.println("******************");
         System.out.println("Testing queueEmail method.");
 
         String internalMessageId = internalMessageService.sendInternalMail(createInternalMessageDTO());
-        System.out.println("Internal message with id "+internalMessageId+" has been created.");
+        System.out.println("Internal message with id " + internalMessageId + " has been created.");
 
         System.out.println("******************");
     }
 
-    private List<InternalAttachmentDTO> createInternalAttachmentsDTO(){
+    private List<InternalAttachmentDTO> createInternalAttachmentsDTO() {
         List<InternalAttachmentDTO> internalAttachments = new ArrayList<>();
 
         try {
@@ -43,7 +41,7 @@ public class InternalMessageServiceTest {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
             ImageIO.write(bImage, "jpg", bos);
-            byte [] data = bos.toByteArray();
+            byte[] data = bos.toByteArray();
 
             InternalAttachmentDTO internalAttachmentDTO = new InternalAttachmentDTO();
             internalAttachmentDTO.setData(data);
@@ -57,7 +55,7 @@ public class InternalMessageServiceTest {
         return internalAttachments;
     }
 
-    private InternalMessageDTO createInternalMessageDTO(){
+    private InternalMessageDTO createInternalMessageDTO() {
         InternalMessageDTO internalMessageDTO = new InternalMessageDTO();
         internalMessageDTO.setSubject("QLACK test internal message");
         internalMessageDTO.setMessage("Internal message content");

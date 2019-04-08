@@ -24,15 +24,15 @@ public class LanguageServiceTest {
         this.languageService = languageService;
     }
 
-    public String createLanguageIfNotExists(){
+    public String createLanguageIfNotExists() {
         System.out.println("******************");
         System.out.println("Testing createLanguageIfNotExists method");
         String languageId = null;
-        try{
+        try {
             languageId = languageService.createLanguageIfNotExists(createLanguageDTO());
-            System.out.println("Language ith id " +languageId + " has been created.");
+            System.out.println("Language ith id " + languageId + " has been created.");
 
-        } catch (QAlreadyExistsException e){
+        } catch (QAlreadyExistsException e) {
             System.out.println(e.getMessage());
 
         }
@@ -70,11 +70,11 @@ public class LanguageServiceTest {
         System.out.println("Testing getLanguages method");
         List<LanguageDTO> languages = languageService.getLanguages(true);
         System.out.println("Language status: ");
-        languages.forEach(languageDTO -> System.out.println(languageDTO.getName() + " is active: " + languageDTO.isActive() ));
+        languages.forEach(languageDTO -> System.out.println(languageDTO.getName() + " is active: " + languageDTO.isActive()));
         System.out.println("******************");
     }
 
-    private LanguageDTO createLanguageDTO(){
+    private LanguageDTO createLanguageDTO() {
         LanguageDTO languageDTO = new LanguageDTO();
         languageDTO.setLocale("gr");
         languageDTO.setName("Greek");

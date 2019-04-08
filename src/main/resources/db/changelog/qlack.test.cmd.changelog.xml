@@ -8,6 +8,7 @@
     <include file="db/changelog/qlack.fuse.audit.changelog.xml"/>
     <include file="db/changelog/qlack.fuse.lexicon.changelog.xml"/>
     <include file="db/changelog/qlack.fuse.mailing.changelog.xml"/>
+    <include file="db/changelog/qlack.fuse.rules.changelog.xml"/>
     <include file="db/changelog/qlack.fuse.settings.changelog.xml"/>
     <include file="db/changelog/qlack.fuse.scheduler.changelog.xml"/>
     <include file="db/changelog/qlack_test_cmd_aaa_0001.yaml"/>

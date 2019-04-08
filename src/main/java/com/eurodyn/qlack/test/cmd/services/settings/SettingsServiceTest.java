@@ -3,10 +3,9 @@ package com.eurodyn.qlack.test.cmd.services.settings;
 import com.eurodyn.qlack.common.exception.QAlreadyExistsException;
 import com.eurodyn.qlack.fuse.settings.dto.SettingDTO;
 import com.eurodyn.qlack.fuse.settings.service.SettingsService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class SettingsServiceTest {
@@ -20,31 +19,31 @@ public class SettingsServiceTest {
         this.settingsService = settingsService;
     }
 
-    public void createSetting(){
+    public void createSetting() {
         System.out.println("******************");
         System.out.println("Testing createSetting method.");
 
         try {
             settingsService.createSetting(settingDTO);
             System.out.println("A new setting has been added.");
-        } catch (QAlreadyExistsException e){
+        } catch (QAlreadyExistsException e) {
             System.out.println(e.getMessage());
         }
 
         System.out.println("******************");
     }
 
-    public void getSettings(){
+    public void getSettings() {
         System.out.println("******************");
         System.out.println("Testing getSettings method.");
 
         List<SettingDTO> settings = settingsService.getSettings(settingDTO.getOwner(), false);
-        System.out.println("Found "+settings.size()+" settings.");
+        System.out.println("Found " + settings.size() + " settings.");
 
         System.out.println("******************");
     }
 
-    private SettingDTO createSettingDTO(){
+    private SettingDTO createSettingDTO() {
         SettingDTO settingDTO = new SettingDTO();
         settingDTO.setKey("Setting Key 1");
         settingDTO.setGroup("Test Group");

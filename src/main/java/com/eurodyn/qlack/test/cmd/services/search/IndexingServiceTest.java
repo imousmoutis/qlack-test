@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class IndexingServiceTest {
+
     private IndexingService indexingService;
     private EmployeeRepository employeeRepository;
     private ElasticEmployeeRepository elasticEmployeeRepository;
@@ -26,7 +27,7 @@ public class IndexingServiceTest {
 
     @Autowired
     public IndexingServiceTest(IndexingService indexingService, EmployeeRepository employeeRepository,
-        ElasticEmployeeRepository elasticEmployeeRepository,   EmployeeMapper employeeMapper) {
+        ElasticEmployeeRepository elasticEmployeeRepository, EmployeeMapper employeeMapper) {
         this.indexingService = indexingService;
         this.employeeRepository = employeeRepository;
         this.elasticEmployeeRepository = elasticEmployeeRepository;

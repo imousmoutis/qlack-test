@@ -40,7 +40,7 @@ public class SchedulerServiceTest {
         System.out.println("Testing listAlljobs method.");
         List<JobDTO> jobNames = schedulerService.getJobInfo();
         System.out.println("Scheduled jobs are: ");
-        jobNames.forEach(s -> System.out.println( s.toString()));
+        jobNames.forEach(s -> System.out.println(s.toString()));
         System.out.println("******************");
     }
 
@@ -48,7 +48,7 @@ public class SchedulerServiceTest {
         System.out.println("******************");
         System.out.println("Testing scheduleJobs method.");
         JobDataMap jobDataMap = new JobDataMap();
-        jobDataMap.put("employeeThreshold", employeeThreshold) ;
+        jobDataMap.put("employeeThreshold", employeeThreshold);
 
         schedulerService.scheduleJob(EmployeeDeletionJob.class, creationCronExp, jobDataMap);
         schedulerService.scheduleJob(EmployeeCreationJob.class, creationCronExp);
@@ -69,7 +69,7 @@ public class SchedulerServiceTest {
     public void deleteJob() {
         System.out.println("******************");
         System.out.println("Testing deleteJob method.");
-        schedulerService.deleteJob(schedulerService.getJobName(LoggerJob.class));
+        schedulerService.deleteJob(SchedulerService.getJobName(LoggerJob.class));
         System.out.println("******************");
     }
 }

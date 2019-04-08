@@ -29,9 +29,9 @@ public class EmployeeDeletionJob implements Job {
 
         List<Employee> employees = employeeRepository.findByFirstNameAndLastName("John", "Doe");
 
-        if(employees.size() >= employeeThreshold) {
+        if (employees.size() >= employeeThreshold) {
             employeeRepository.deleteByFirstNameAndLastName("John", "Doe");
-            log.info(jobExecutionContext.getFireInstanceId() +  " : Deleted all generated employees");
+            log.info(jobExecutionContext.getFireInstanceId() + " : Deleted all generated employees");
         }
     }
 }

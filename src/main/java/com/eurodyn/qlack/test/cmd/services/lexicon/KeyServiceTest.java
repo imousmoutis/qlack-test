@@ -35,16 +35,16 @@ public class KeyServiceTest {
         try {
             String key = keyService.createKey(createKeyDTO(), false);
             System.out.println("Created key with id:" + key);
-        } catch (QAlreadyExistsException e){
+        } catch (QAlreadyExistsException e) {
             System.out.println(e.getMessage());
         }
         System.out.println("******************");
     }
 
-    public void updateTranslation(){
+    public void updateTranslation() {
         String UPDATED_TRANSLATION = "Add attachment description here";
         keyService.updateTranslation(
-            keyService.getKeyByName("attach_desc",groupService.getGroupByName("ui").getId(), false).getId(),
+            keyService.getKeyByName("attach_desc", groupService.getGroupByName("ui").getId(), false).getId(),
             languageService.getLanguageByLocale("en").getId(), UPDATED_TRANSLATION);
     }
 

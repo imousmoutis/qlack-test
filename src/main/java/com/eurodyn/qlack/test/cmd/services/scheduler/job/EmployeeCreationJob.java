@@ -28,7 +28,7 @@ public class EmployeeCreationJob implements Job {
         employeeRepository.save(employee);
         System.out.println("Created: " + employee.toString());
         System.out.println("Employees are now " + employeeRepository.findAll().size());
-        log.info(jobExecutionContext.getJobInstance() + " " +  jobExecutionContext.getFireTime() + " " + jobExecutionContext.getFireTime());
+        log.info(jobExecutionContext.getJobInstance() + " " + jobExecutionContext.getFireTime() + " " + jobExecutionContext.getFireTime());
     }
 }
 

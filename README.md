@@ -14,11 +14,11 @@ In order to run the application, run `java -jar qlack-test-cmd-1.0-SNAPSHOT.jar`
 
 | Module               | Argument         |
 |----------------------|------------------|
-| qlack-fuse-aaa       | UserService      |
+| qlack-fuse-aaa       | AAAService       |
 | qlack-fuse-audit     | AuditService     |
-| qlack-fuse-lexicon   | LanguageService  |
-| qlack-fuse-mailing   | MailService      |
+| qlack-fuse-lexicon   | LexiconService   |
+| qlack-fuse-mailing   | MailingService   |
 | qlack-fuse-rules     | RulesService     |
+| qlack-fuse-scheduler | SchedulerService |
 | qlack-fuse-search    | SearchService    |
 | qlack-fuse-settings  | SettingsService  |
-| qlack-fuse-scheduler | SchedulerService |
