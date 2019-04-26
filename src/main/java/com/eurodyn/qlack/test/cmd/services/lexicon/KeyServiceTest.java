@@ -44,7 +44,7 @@ public class KeyServiceTest {
     public void updateTranslation() {
         String UPDATED_TRANSLATION = "Add attachment description here";
         keyService.updateTranslation(
-            keyService.getKeyByName("attach_desc", groupService.getGroupByName("ui").getId(), false).getId(),
+            keyService.getKeyByName("attach_desc", groupService.getGroupByTitle("ui").getId(), false).getId(),
             languageService.getLanguageByLocale("en").getId(), UPDATED_TRANSLATION);
     }
 
