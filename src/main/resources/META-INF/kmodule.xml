@@ -1,0 +1,8 @@
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+    <kbase name="activate-rules" packages="org.drools.rules.activate">
+        <ksession name="ksession-activate-rules"/>
+    </kbase>
+    <kbase name="deactivate-rules" packages="org.drools.rules.deactivate">
+        <ksession name="ksession-deactivate-rules"/>
+    </kbase>
+</kmodule>

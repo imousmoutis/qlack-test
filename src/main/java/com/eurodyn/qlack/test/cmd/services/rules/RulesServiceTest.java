@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Inject;
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,9 +27,9 @@ public class RulesServiceTest {
 
     private final AccountComponent accountComponent;
 
-    private final KieSession kieSession;
-
     private final RulesComponent rulesComponent;
+
+    private final KieContainer kieContainer;
 
     private final KnowledgeBaseService knowledgeBaseService;
 
@@ -37,29 +40,46 @@ public class RulesServiceTest {
     private final List<String> rules = generateRules();
 
     @Autowired
-    public RulesServiceTest(AccountRepository accountRepository, AccountComponent accountComponent, KieSession kieSession,
+    public RulesServiceTest(AccountRepository accountRepository, AccountComponent accountComponent,
         RulesComponent rulesComponent, KnowledgeBaseService knowledgeBaseService,
         KnowledgeSessionService knowledgeSessionService) {
         this.accountRepository = accountRepository;
         this.accountComponent = accountComponent;
-        this.kieSession = kieSession;
         this.rulesComponent = rulesComponent;
+        this.kieContainer = KieServices.Factory.get().getKieClasspathContainer();
         this.knowledgeBaseService = knowledgeBaseService;
         this.knowledgeSessionService = knowledgeSessionService;
         this.accounts = this.accountRepository.findAll();
     }
 
-    public void fireRulesFromResources() {
+    public void fireActivateRulesFromResources() {
         System.out.println("******************");
-        System.out.println("Testing fireRulesFromResources.");
+        System.out.println("Testing fireActivateRulesFromResources.");
 
         editAccountValues();
-        Account account1 = accounts.get(0);
-        Account account2 = accounts.get(1);
+        Account account = accounts.get(1);
+
+        KieSession kieSession = kieContainer.newKieSession("ksession-activate-rules");
 
         kieSession.setGlobal("accountComponent", accountComponent);
-        kieSession.insert(account1);
-        kieSession.insert(account2);
+        kieSession.insert(account);
+        kieSession.fireAllRules();
+
+        System.out.println("******************");
+        revertAccountValues();
+    }
+
+    public void fireDeactivateRulesFromResources() {
+        System.out.println("******************");
+        System.out.println("Testing fireDeactivateRulesFromResources.");
+
+        editAccountValues();
+        Account account = accounts.get(0);
+
+        KieSession kieSession = kieContainer.newKieSession("ksession-deactivate-rules");
+
+        kieSession.setGlobal("accountComponent", accountComponent);
+        kieSession.insert(account);
         kieSession.fireAllRules();
 
         System.out.println("******************");

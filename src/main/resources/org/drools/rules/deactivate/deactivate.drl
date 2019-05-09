@@ -10,15 +10,6 @@ rule "accountBalanceAtLeast100"
     System.out.println("The balance of the account " +$account.getId()+ " is significantly low.");
 end
 
-rule "accountIsActive"
-  when
-    $account : Account((status == AccountStatus.INACTIVE) && (balance > 0))
-  then
-    $account.setStatus(AccountStatus.ACTIVE);
-    accountComponent.save($account);
-    System.out.println("The account " +$account.getId()+ " has been activated.");
-end
-
 rule "accountIsInactive"
   when
     $account : Account((status == AccountStatus.ACTIVE) && (balance == 0))
