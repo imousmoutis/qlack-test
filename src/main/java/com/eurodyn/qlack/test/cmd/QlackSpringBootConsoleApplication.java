@@ -13,6 +13,7 @@ import com.eurodyn.qlack.test.cmd.services.search.AdminServiceTest;
 import com.eurodyn.qlack.test.cmd.services.search.IndexingServiceTest;
 import com.eurodyn.qlack.test.cmd.services.search.SearchServiceTest;
 import com.eurodyn.qlack.test.cmd.services.settings.SettingsServiceTest;
+import com.eurodyn.qlack.test.cmd.services.workflow.WorkflowServiceTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
@@ -23,6 +24,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -56,6 +58,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
     "com.eurodyn.qlack.fuse.scheduler",
     "com.eurodyn.qlack.fuse.settings",
     "com.eurodyn.qlack.fuse.search",
+    "com.eurodyn.qlack.fuse.security",
+    "com.eurodyn.qlack.fuse.workflow",
     "com.eurodyn.qlack.test.cmd"
 })
 
@@ -65,47 +69,61 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class QlackSpringBootConsoleApplication implements CommandLineRunner {
 
-    @Autowired
-    private ConfigurableApplicationContext context;
+    private final ConfigurableApplicationContext context;
+
+    private final UserServiceTest userServiceTest;
+
+    private final AuditServiceTest auditServiceTest;
+
+    private final AuditLevelServiceTest auditLevelServiceTest;
+
+    private final SettingsServiceTest settingsServiceTest;
+
+    private final MailServiceTest mailServiceTest;
+
+    private final InternalMessageServiceTest internalMessageServiceTest;
+
+    private final LanguageServiceTest languageServiceTest;
+
+    private final KeyServiceTest keyServiceTest;
+
+    private final AdminServiceTest adminServiceTest;
+
+    private final IndexingServiceTest indexingServiceTest;
+
+    private final SearchServiceTest searchServiceTest;
+
+    private final SchedulerServiceTest schedulerServiceTest;
+
+    private final RulesServiceTest rulesServiceTest;
+
+    private final WorkflowServiceTest workflowServiceTest;
 
     @Autowired
-    private UserServiceTest userServiceTest;
-
-    @Autowired
-    private AuditServiceTest auditServiceTest;
-
-    @Autowired
-    private AuditLevelServiceTest auditLevelServiceTest;
-
-    @Autowired
-    private SettingsServiceTest settingsServiceTest;
-
-    @Autowired
-    private MailServiceTest mailServiceTest;
-
-    @Autowired
-    private InternalMessageServiceTest internalMessageServiceTest;
-
-    @Autowired
-    private LanguageServiceTest languageServiceTest;
-
-    @Autowired
-    private KeyServiceTest keyServiceTest;
-
-    @Autowired
-    private AdminServiceTest adminServiceTest;
-
-    @Autowired
-    private IndexingServiceTest indexingServiceTest;
-
-    @Autowired
-    private SearchServiceTest searchServiceTest;
-
-    @Autowired
-    private SchedulerServiceTest schedulerServiceTest;
-
-    @Autowired
-    private RulesServiceTest rulesServiceTest;
+    public QlackSpringBootConsoleApplication(ConfigurableApplicationContext context,
+        @Lazy UserServiceTest userServiceTest, AuditServiceTest auditServiceTest,
+        AuditLevelServiceTest auditLevelServiceTest, SettingsServiceTest settingsServiceTest,
+        MailServiceTest mailServiceTest, InternalMessageServiceTest internalMessageServiceTest,
+        LanguageServiceTest languageServiceTest, KeyServiceTest keyServiceTest,
+        AdminServiceTest adminServiceTest, IndexingServiceTest indexingServiceTest,
+        SearchServiceTest searchServiceTest, SchedulerServiceTest schedulerServiceTest,
+        RulesServiceTest rulesServiceTest, @Lazy WorkflowServiceTest workflowServiceTest) {
+        this.context = context;
+        this.userServiceTest = userServiceTest;
+        this.auditServiceTest = auditServiceTest;
+        this.auditLevelServiceTest = auditLevelServiceTest;
+        this.settingsServiceTest = settingsServiceTest;
+        this.mailServiceTest = mailServiceTest;
+        this.internalMessageServiceTest = internalMessageServiceTest;
+        this.languageServiceTest = languageServiceTest;
+        this.keyServiceTest = keyServiceTest;
+        this.adminServiceTest = adminServiceTest;
+        this.indexingServiceTest = indexingServiceTest;
+        this.searchServiceTest = searchServiceTest;
+        this.schedulerServiceTest = schedulerServiceTest;
+        this.rulesServiceTest = rulesServiceTest;
+        this.workflowServiceTest = workflowServiceTest;
+    }
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(QlackSpringBootConsoleApplication.class);
@@ -177,6 +195,10 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
                 case "SettingsService":
                     settingsServiceTest.createSetting();
                     settingsServiceTest.getSettings();
+                    break;
+                case "WorkflowService":
+                    workflowServiceTest.startWorkflowInstance();
+                    workflowServiceTest.getProcessInstancesByProcessId();
                     break;
                 default:
                     System.out.println("Service " + args[0] + " is not found :(");

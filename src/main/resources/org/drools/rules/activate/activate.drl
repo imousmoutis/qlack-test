@@ -1,13 +1,10 @@
 import com.eurodyn.qlack.test.cmd.model.Account
 import com.eurodyn.qlack.test.cmd.model.AccountStatus
 
-global com.eurodyn.qlack.test.cmd.component.AccountComponent accountComponent;
-
 rule "accountIsActive"
   when
     $account : Account((status == AccountStatus.INACTIVE) && (balance > 0))
   then
     $account.setStatus(AccountStatus.ACTIVE);
-    accountComponent.save($account);
     System.out.println("The account " +$account.getId()+ " has been activated.");
 end

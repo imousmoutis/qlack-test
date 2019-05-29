@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.kie.api.KieServices;
+import org.kie.api.cdi.KContainer;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class RulesServiceTest {
 
     private final RulesComponent rulesComponent;
 
+    @KContainer
     private final KieContainer kieContainer;
 
     private final KnowledgeBaseService knowledgeBaseService;
@@ -42,13 +44,13 @@ public class RulesServiceTest {
     @Autowired
     public RulesServiceTest(AccountRepository accountRepository, AccountComponent accountComponent,
         RulesComponent rulesComponent, KnowledgeBaseService knowledgeBaseService,
-        KnowledgeSessionService knowledgeSessionService) {
+        KnowledgeSessionService knowledgeSessionService, KieContainer kieContainer) {
         this.accountRepository = accountRepository;
         this.accountComponent = accountComponent;
         this.rulesComponent = rulesComponent;
-        this.kieContainer = KieServices.Factory.get().getKieClasspathContainer();
         this.knowledgeBaseService = knowledgeBaseService;
         this.knowledgeSessionService = knowledgeSessionService;
+        this.kieContainer = kieContainer;
         this.accounts = this.accountRepository.findAll();
     }
 
@@ -61,7 +63,6 @@ public class RulesServiceTest {
 
         KieSession kieSession = kieContainer.newKieSession("ksession-activate-rules");
 
-        kieSession.setGlobal("accountComponent", accountComponent);
         kieSession.insert(account);
         kieSession.fireAllRules();
 

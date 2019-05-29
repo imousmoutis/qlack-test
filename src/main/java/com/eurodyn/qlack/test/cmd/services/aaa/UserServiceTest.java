@@ -6,6 +6,7 @@ import com.eurodyn.qlack.fuse.aaa.service.UserService;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class UserServiceTest {
         UserDTO existingUser = userService.getUserByName(USERNAME);
 
         if (existingUser == null) {
-            String userId = userService.createUser(userDTO);
+            String userId = userService.createUser(userDTO, Optional.empty());
             System.out.println("User with id " + userId + " has been created.");
         } else {
             System.out.println("User " + USERNAME + " already exists.");

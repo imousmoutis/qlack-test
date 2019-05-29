@@ -70,7 +70,7 @@ public class MailServiceTest {
     private EmailDTO createEmailDTO() {
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setSubject("QLACK test email");
-        emailDTO.setBody("<p> général στρατηγός</p>");
+        emailDTO.setBody("<p> test</p>");
         emailDTO.setFromEmail("ioannis.mousmoutis@eurodyn.com");
         emailDTO.setToEmails(Arrays.asList("wapis_user@delos.eurodyn.com"));
         emailDTO.setEmailType(EmailDTO.EMAIL_TYPE.HTML);
