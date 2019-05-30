@@ -14,6 +14,7 @@ import com.eurodyn.qlack.test.cmd.services.search.IndexingServiceTest;
 import com.eurodyn.qlack.test.cmd.services.search.SearchServiceTest;
 import com.eurodyn.qlack.test.cmd.services.settings.SettingsServiceTest;
 import com.eurodyn.qlack.test.cmd.services.workflow.WorkflowServiceTest;
+import com.eurodyn.qlack.test.cmd.services.workflow.WorkflowTaskServiceTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
@@ -38,6 +39,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
     "com.eurodyn.qlack.fuse.mailing.repository",
     "com.eurodyn.qlack.fuse.rules.repository",
     "com.eurodyn.qlack.fuse.settings.repository",
+    "com.eurodyn.qlack.fuse.workflow.repository",
     "com.eurodyn.qlack.test.cmd.repository"
 })
 @EntityScan({
@@ -47,6 +49,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
     "com.eurodyn.qlack.fuse.mailing.model",
     "com.eurodyn.qlack.fuse.rules.model",
     "com.eurodyn.qlack.fuse.settings.model",
+    "com.eurodyn.qlack.fuse.workflow.model",
     "com.eurodyn.qlack.test.cmd.model"
 })
 @ComponentScan(basePackages = {
@@ -99,6 +102,8 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
 
     private final WorkflowServiceTest workflowServiceTest;
 
+    private final WorkflowTaskServiceTest workflowTaskServiceTest;
+
     @Autowired
     public QlackSpringBootConsoleApplication(ConfigurableApplicationContext context,
         @Lazy UserServiceTest userServiceTest, AuditServiceTest auditServiceTest,
@@ -107,7 +112,8 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
         LanguageServiceTest languageServiceTest, KeyServiceTest keyServiceTest,
         AdminServiceTest adminServiceTest, IndexingServiceTest indexingServiceTest,
         SearchServiceTest searchServiceTest, SchedulerServiceTest schedulerServiceTest,
-        RulesServiceTest rulesServiceTest, @Lazy WorkflowServiceTest workflowServiceTest) {
+        RulesServiceTest rulesServiceTest, @Lazy WorkflowServiceTest workflowServiceTest,
+        @Lazy WorkflowTaskServiceTest workflowTaskServiceTest) {
         this.context = context;
         this.userServiceTest = userServiceTest;
         this.auditServiceTest = auditServiceTest;
@@ -123,6 +129,7 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
         this.schedulerServiceTest = schedulerServiceTest;
         this.rulesServiceTest = rulesServiceTest;
         this.workflowServiceTest = workflowServiceTest;
+        this.workflowTaskServiceTest = workflowTaskServiceTest;
     }
 
     public static void main(String[] args) {
@@ -198,7 +205,10 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
                     break;
                 case "WorkflowService":
                     workflowServiceTest.startWorkflowInstance();
+                    workflowTaskServiceTest.testProcedure();
                     workflowServiceTest.getProcessInstancesByProcessId();
+                    workflowServiceTest.getProcessHistory("two-tasks-process");
+                    workflowServiceTest.updateProcessesFromResources();
                     break;
                 default:
                     System.out.println("Service " + args[0] + " is not found :(");

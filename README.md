@@ -9,6 +9,7 @@ This application tests the following [QLACK](https://github.com/eurodyn/QLACK) m
 - qlack-fuse-search
 - qlack-fuse-settings
 - qlack-fuse-scheduler
+- qlack-fuse-workflow
 
 In order to run the application, run `java -jar qlack-test-cmd-1.0-SNAPSHOT.jar` adding one of the following arguments:
 
@@ -22,3 +23,4 @@ In order to run the application, run `java -jar qlack-test-cmd-1.0-SNAPSHOT.jar`
 | qlack-fuse-scheduler | SchedulerService |
 | qlack-fuse-search    | SearchService    |
 | qlack-fuse-settings  | SettingsService  |
+| qlack-fuse-workflow  | WorkflowService  |
