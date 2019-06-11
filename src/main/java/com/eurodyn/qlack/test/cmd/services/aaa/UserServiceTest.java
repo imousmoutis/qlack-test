@@ -30,7 +30,7 @@ public class UserServiceTest {
         UserDTO existingUser = userService.getUserByName(USERNAME);
 
         if (existingUser == null) {
-            String userId = userService.createUser(userDTO, Optional.empty());
+            String userId = userService.createUser(userDTO, Optional.of(""));
             System.out.println("User with id " + userId + " has been created.");
         } else {
             System.out.println("User " + USERNAME + " already exists.");

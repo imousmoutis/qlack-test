@@ -4,13 +4,13 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <include file="db/changelog/qlack.fuse.aaa.changelog.xml"/>
-    <include file="db/changelog/qlack.fuse.audit.changelog.xml"/>
-    <include file="db/changelog/qlack.fuse.lexicon.changelog.xml"/>
-    <include file="db/changelog/qlack.fuse.mailing.changelog.xml"/>
-    <include file="db/changelog/qlack.fuse.rules.changelog.xml"/>
-    <include file="db/changelog/qlack.fuse.settings.changelog.xml"/>
-    <include file="db/changelog/qlack.fuse.scheduler.changelog.xml"/>
-    <include file="db/changelog/qlack.fuse.workflow.changelog.xml"/>
+    <include file="db/changelog/qlack-fuse-aaa/qlack.fuse.aaa.changelog.xml"/>
+    <include file="db/changelog/qlack-fuse-audit/qlack.fuse.audit.changelog.xml"/>
+    <include file="db/changelog/qlack-fuse-lexicon/qlack.fuse.lexicon.changelog.xml"/>
+    <include file="db/changelog/qlack-fuse-mailing/qlack.fuse.mailing.changelog.xml"/>
+    <include file="db/changelog/qlack-fuse-rules/qlack.fuse.rules.changelog.xml"/>
+    <include file="db/changelog/qlack-fuse-settings/qlack.fuse.settings.changelog.xml"/>
+    <include file="db/changelog/qlack-fuse-scheduler/qlack.fuse.scheduler.changelog.xml"/>
+    <include file="db/changelog/qlack-fuse-workflow/qlack.fuse.workflow.changelog.xml"/>
     <include file="db/changelog/qlack_test_cmd_aaa_0001.yaml"/>
 </databaseChangeLog>
