@@ -17,38 +17,39 @@ import org.springframework.stereotype.Service;
 @Service
 public class SearchServiceTest {
 
-    private SearchService searchService;
-    private ElasticEmployeeRepository elasticEmployeeRepository;
+  private SearchService searchService;
+  private ElasticEmployeeRepository elasticEmployeeRepository;
 
-    @Autowired
-    public SearchServiceTest(SearchService searchService, ElasticEmployeeRepository elasticEmployeeRepository) {
-        this.searchService = searchService;
-        this.elasticEmployeeRepository = elasticEmployeeRepository;
-    }
+  @Autowired
+  public SearchServiceTest(SearchService searchService,
+      ElasticEmployeeRepository elasticEmployeeRepository) {
+    this.searchService = searchService;
+    this.elasticEmployeeRepository = elasticEmployeeRepository;
+  }
 
-    public void searchUsingRepository() {
+  public void searchUsingRepository() {
 
-        List<EmployeeDTO> byAge = elasticEmployeeRepository.findByAge(30);
-        byAge.forEach(b -> System.out.println(b.toString()));
+    List<EmployeeDTO> byAge = elasticEmployeeRepository.findByAge(30);
+    byAge.forEach(b -> System.out.println(b.toString()));
 
-        List<EmployeeDTO> byName = elasticEmployeeRepository.findByFirstName("Dwight");
-        byName.forEach(employeeDTO -> System.out.println(employeeDTO.toString()));
-    }
+    List<EmployeeDTO> byName = elasticEmployeeRepository.findByFirstName("Dwight");
+    byName.forEach(employeeDTO -> System.out.println(employeeDTO.toString()));
+  }
 
 
-    public void searchQueryRange() {
-        System.out.println("******************");
-        System.out.println("Testing query range");
-        QueryRange queryRange = new QueryRange() {
-        };
-        queryRange.setTerm("age", 28, 30);
-        queryRange.setIndex("employee");
+  public void searchQueryRange() {
+    System.out.println("******************");
+    System.out.println("Testing query range");
+    QueryRange queryRange = new QueryRange() {
+    };
+    queryRange.setTerm("age", 28, 30);
+    queryRange.setIndex("employee");
 
-        QuerySort querySort = new QuerySort();
-        querySort.setSort("age", "asc");
-        queryRange.setQuerySort(querySort);
+    QuerySort querySort = new QuerySort();
+    querySort.setSort("age", "asc");
+    queryRange.setQuerySort(querySort);
 
-        SearchResultDTO searchResultDTO = searchService.search(queryRange);
-        System.out.println(searchResultDTO.getHits());
-    }
+    SearchResultDTO searchResultDTO = searchService.search(queryRange);
+    System.out.println(searchResultDTO.getHits());
+  }
 }

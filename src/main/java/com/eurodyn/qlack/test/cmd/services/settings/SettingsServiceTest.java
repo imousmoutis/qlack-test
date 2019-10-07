@@ -10,47 +10,47 @@ import org.springframework.stereotype.Service;
 @Service
 public class SettingsServiceTest {
 
-    private final SettingsService settingsService;
+  private final SettingsService settingsService;
 
-    private final SettingDTO settingDTO = createSettingDTO();
+  private final SettingDTO settingDTO = createSettingDTO();
 
-    @Autowired
-    public SettingsServiceTest(SettingsService settingsService) {
-        this.settingsService = settingsService;
+  @Autowired
+  public SettingsServiceTest(SettingsService settingsService) {
+    this.settingsService = settingsService;
+  }
+
+  public void createSetting() {
+    System.out.println("******************");
+    System.out.println("Testing createSetting method.");
+
+    try {
+      settingsService.createSetting(settingDTO);
+      System.out.println("A new setting has been added.");
+    } catch (QAlreadyExistsException e) {
+      System.out.println(e.getMessage());
     }
 
-    public void createSetting() {
-        System.out.println("******************");
-        System.out.println("Testing createSetting method.");
+    System.out.println("******************");
+  }
 
-        try {
-            settingsService.createSetting(settingDTO);
-            System.out.println("A new setting has been added.");
-        } catch (QAlreadyExistsException e) {
-            System.out.println(e.getMessage());
-        }
+  public void getSettings() {
+    System.out.println("******************");
+    System.out.println("Testing getSettings method.");
 
-        System.out.println("******************");
-    }
+    List<SettingDTO> settings = settingsService.getSettings(settingDTO.getOwner(), false);
+    System.out.println("Found " + settings.size() + " settings.");
 
-    public void getSettings() {
-        System.out.println("******************");
-        System.out.println("Testing getSettings method.");
+    System.out.println("******************");
+  }
 
-        List<SettingDTO> settings = settingsService.getSettings(settingDTO.getOwner(), false);
-        System.out.println("Found " + settings.size() + " settings.");
-
-        System.out.println("******************");
-    }
-
-    private SettingDTO createSettingDTO() {
-        SettingDTO settingDTO = new SettingDTO();
-        settingDTO.setKey("Setting Key 1");
-        settingDTO.setGroup("Test Group");
-        settingDTO.setOwner("Test Owner");
-        settingDTO.setPassword(true);
-        settingDTO.setCreatedOn(1625145120000L);
-        return settingDTO;
-    }
+  private SettingDTO createSettingDTO() {
+    SettingDTO settingDTO = new SettingDTO();
+    settingDTO.setKey("Setting Key 1");
+    settingDTO.setGroup("Test Group");
+    settingDTO.setOwner("Test Owner");
+    settingDTO.setPassword(true);
+    settingDTO.setCreatedOn(1625145120000L);
+    return settingDTO;
+  }
 
 }

@@ -11,8 +11,11 @@ import org.springframework.stereotype.Repository;
  * @author European Dynamics
  */
 @Repository
-public interface EmployeeRepository<T extends Employee, I extends Serializable> extends JpaRepository<T, I>, QuerydslPredicateExecutor<T> {
-    List<Employee> findByFirstNameAndLastName(String firstName, String lastName);
-    void deleteByFirstNameAndLastName(String firstName, String lastName);
+public interface EmployeeRepository<T extends Employee, I extends Serializable> extends
+    JpaRepository<T, I>, QuerydslPredicateExecutor<T> {
+
+  List<Employee> findByFirstNameAndLastName(String firstName, String lastName);
+
+  void deleteByFirstNameAndLastName(String firstName, String lastName);
 }
 

@@ -7,30 +7,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class VariableServiceTest {
 
-    private final VariableService variableService;
+  private final VariableService variableService;
 
-    @Autowired
-    public VariableServiceTest(VariableService variableService) {
-        this.variableService = variableService;
-    }
+  @Autowired
+  public VariableServiceTest(VariableService variableService) {
+    this.variableService = variableService;
+  }
 
-    public void getVariableInstance(String processInstanceId) {
-        System.out.println("******************");
-        System.out.println("Testing getVariableInstance method.");
+  public void getVariableInstance(String processInstanceId) {
+    System.out.println("******************");
+    System.out.println("Testing getVariableInstance method.");
 
-        Object variableValue = variableService.getVariableInstance(processInstanceId, "username");
+    Object variableValue = variableService.getVariableInstance(processInstanceId, "username");
 
-        System.out.println("The process instance with id " + processInstanceId + " has the variable " + variableValue);
-        System.out.println("******************");
-    }
+    System.out.println(
+        "The process instance with id " + processInstanceId + " has the variable " + variableValue);
+    System.out.println("******************");
+  }
 
-    public void setVariableInstance(String processInstanceId) {
-        System.out.println("******************");
-        System.out.println("Testing setVariableInstance method.");
+  public void setVariableInstance(String processInstanceId) {
+    System.out.println("******************");
+    System.out.println("Testing setVariableInstance method.");
 
-        variableService.setVariableInstance(processInstanceId, "username", "updatedVariableValue");
+    variableService.setVariableInstance(processInstanceId, "username", "updatedVariableValue");
 
-        System.out.println("******************");
-        getVariableInstance(processInstanceId);
-    }
+    System.out.println("******************");
+    getVariableInstance(processInstanceId);
+  }
 }

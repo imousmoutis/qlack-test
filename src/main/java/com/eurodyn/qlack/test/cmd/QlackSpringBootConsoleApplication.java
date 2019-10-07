@@ -72,155 +72,155 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class QlackSpringBootConsoleApplication implements CommandLineRunner {
 
-    private final ConfigurableApplicationContext context;
+  private final ConfigurableApplicationContext context;
 
-    private final UserServiceTest userServiceTest;
+  private final UserServiceTest userServiceTest;
 
-    private final AuditServiceTest auditServiceTest;
+  private final AuditServiceTest auditServiceTest;
 
-    private final AuditLevelServiceTest auditLevelServiceTest;
+  private final AuditLevelServiceTest auditLevelServiceTest;
 
-    private final SettingsServiceTest settingsServiceTest;
+  private final SettingsServiceTest settingsServiceTest;
 
-    private final MailServiceTest mailServiceTest;
+  private final MailServiceTest mailServiceTest;
 
-    private final InternalMessageServiceTest internalMessageServiceTest;
+  private final InternalMessageServiceTest internalMessageServiceTest;
 
-    private final LanguageServiceTest languageServiceTest;
+  private final LanguageServiceTest languageServiceTest;
 
-    private final KeyServiceTest keyServiceTest;
+  private final KeyServiceTest keyServiceTest;
 
-    private final AdminServiceTest adminServiceTest;
+  private final AdminServiceTest adminServiceTest;
 
-    private final IndexingServiceTest indexingServiceTest;
+  private final IndexingServiceTest indexingServiceTest;
 
-    private final SearchServiceTest searchServiceTest;
+  private final SearchServiceTest searchServiceTest;
 
-    private final SchedulerServiceTest schedulerServiceTest;
+  private final SchedulerServiceTest schedulerServiceTest;
 
-    private final RulesServiceTest rulesServiceTest;
+  private final RulesServiceTest rulesServiceTest;
 
-    private final WorkflowServiceTest workflowServiceTest;
+  private final WorkflowServiceTest workflowServiceTest;
 
-    private final WorkflowTaskServiceTest workflowTaskServiceTest;
+  private final WorkflowTaskServiceTest workflowTaskServiceTest;
 
-    @Autowired
-    public QlackSpringBootConsoleApplication(ConfigurableApplicationContext context,
-        @Lazy UserServiceTest userServiceTest, AuditServiceTest auditServiceTest,
-        AuditLevelServiceTest auditLevelServiceTest, SettingsServiceTest settingsServiceTest,
-        MailServiceTest mailServiceTest, InternalMessageServiceTest internalMessageServiceTest,
-        LanguageServiceTest languageServiceTest, KeyServiceTest keyServiceTest,
-        AdminServiceTest adminServiceTest, IndexingServiceTest indexingServiceTest,
-        SearchServiceTest searchServiceTest, SchedulerServiceTest schedulerServiceTest,
-        RulesServiceTest rulesServiceTest, @Lazy WorkflowServiceTest workflowServiceTest,
-        @Lazy WorkflowTaskServiceTest workflowTaskServiceTest) {
-        this.context = context;
-        this.userServiceTest = userServiceTest;
-        this.auditServiceTest = auditServiceTest;
-        this.auditLevelServiceTest = auditLevelServiceTest;
-        this.settingsServiceTest = settingsServiceTest;
-        this.mailServiceTest = mailServiceTest;
-        this.internalMessageServiceTest = internalMessageServiceTest;
-        this.languageServiceTest = languageServiceTest;
-        this.keyServiceTest = keyServiceTest;
-        this.adminServiceTest = adminServiceTest;
-        this.indexingServiceTest = indexingServiceTest;
-        this.searchServiceTest = searchServiceTest;
-        this.schedulerServiceTest = schedulerServiceTest;
-        this.rulesServiceTest = rulesServiceTest;
-        this.workflowServiceTest = workflowServiceTest;
-        this.workflowTaskServiceTest = workflowTaskServiceTest;
+  @Autowired
+  public QlackSpringBootConsoleApplication(ConfigurableApplicationContext context,
+      @Lazy UserServiceTest userServiceTest, AuditServiceTest auditServiceTest,
+      AuditLevelServiceTest auditLevelServiceTest, SettingsServiceTest settingsServiceTest,
+      MailServiceTest mailServiceTest, InternalMessageServiceTest internalMessageServiceTest,
+      LanguageServiceTest languageServiceTest, KeyServiceTest keyServiceTest,
+      AdminServiceTest adminServiceTest, IndexingServiceTest indexingServiceTest,
+      SearchServiceTest searchServiceTest, SchedulerServiceTest schedulerServiceTest,
+      RulesServiceTest rulesServiceTest, @Lazy WorkflowServiceTest workflowServiceTest,
+      @Lazy WorkflowTaskServiceTest workflowTaskServiceTest) {
+    this.context = context;
+    this.userServiceTest = userServiceTest;
+    this.auditServiceTest = auditServiceTest;
+    this.auditLevelServiceTest = auditLevelServiceTest;
+    this.settingsServiceTest = settingsServiceTest;
+    this.mailServiceTest = mailServiceTest;
+    this.internalMessageServiceTest = internalMessageServiceTest;
+    this.languageServiceTest = languageServiceTest;
+    this.keyServiceTest = keyServiceTest;
+    this.adminServiceTest = adminServiceTest;
+    this.indexingServiceTest = indexingServiceTest;
+    this.searchServiceTest = searchServiceTest;
+    this.schedulerServiceTest = schedulerServiceTest;
+    this.rulesServiceTest = rulesServiceTest;
+    this.workflowServiceTest = workflowServiceTest;
+    this.workflowTaskServiceTest = workflowTaskServiceTest;
+  }
+
+  public static void main(String[] args) {
+    SpringApplication app = new SpringApplication(QlackSpringBootConsoleApplication.class);
+    app.setBannerMode(Banner.Mode.OFF);
+    app.run(args);
+  }
+
+  public void run(String... args) {
+    if (args.length == 0) {
+      System.out.println("Please provide the service name you want to test as the first argument.");
+    } else {
+
+      switch (args[0]) {
+        case "AAAService":
+          userServiceTest.createUser();
+          //userServiceTest.updateUser();
+          //userServiceTest.getUserByName();
+          //userServiceTest.deleteUser();
+          break;
+        case "AuditService":
+          auditLevelServiceTest.addLevelIfNotExists();
+          auditLevelServiceTest.listAuditLevels();
+          auditLevelServiceTest.getAuditLevelByName();
+          auditServiceTest.audit();
+          auditServiceTest.getAuditLogs();
+          break;
+        case "LexiconService":
+          languageServiceTest.createLanguageIfNotExists();
+          languageServiceTest.downloadLanguage(languageServiceTest.getLanguage().getId());
+          languageServiceTest.deactivateLanguage();
+          languageServiceTest.getLanguages();
+          keyServiceTest.createKey();
+          keyServiceTest.getTranslationsForLocale();
+          break;
+        case "MailingService":
+          mailServiceTest.queueEmail();
+          internalMessageServiceTest.sendInternalMail();
+          break;
+        case "RulesService":
+          rulesServiceTest.fireActivateRulesFromResources();
+          rulesServiceTest.fireDeactivateRulesFromResources();
+          rulesServiceTest.statelessExecute(null);
+          rulesServiceTest.createKnowledgeBase();
+          rulesServiceTest.statelessExecuteGetResults();
+          break;
+        case "SchedulerService":
+          schedulerServiceTest.listAllJobs();
+          schedulerServiceTest.scheduleJobs();
+          schedulerServiceTest.triggerJob();
+          schedulerServiceTest.deleteJob();
+          break;
+        case "SearchService":
+          if (adminServiceTest.checkIsUp()) {
+            adminServiceTest.createIndex();
+            adminServiceTest.openAndCloseIndex();
+
+            indexingServiceTest.indexDocument();
+            indexingServiceTest.indexByRepo();
+
+            indexingServiceTest.deleteFromRepo();
+            indexingServiceTest.unindexDocument();
+
+            searchServiceTest.searchUsingRepository();
+            searchServiceTest.searchQueryRange();
+          } else {
+            System.out.println("Elastic cluster is down.");
+          }
+          break;
+        case "SettingsService":
+          settingsServiceTest.createSetting();
+          settingsServiceTest.getSettings();
+          break;
+        case "WorkflowService":
+          workflowServiceTest.startWorkflowInstance();
+          workflowTaskServiceTest.testProcedure();
+          workflowServiceTest.getProcessInstancesByProcessId();
+          workflowServiceTest.getProcessHistory("two-tasks-process");
+          workflowServiceTest.updateProcessesFromResources();
+          break;
+        default:
+          System.out.println("Service " + args[0] + " is not found :(");
+      }
     }
 
-    public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(QlackSpringBootConsoleApplication.class);
-        app.setBannerMode(Banner.Mode.OFF);
-        app.run(args);
-    }
+    SpringApplication.exit(context);
+    System.exit(0);
+  }
 
-    public void run(String... args) {
-        if (args.length == 0) {
-            System.out.println("Please provide the service name you want to test as the first argument.");
-        } else {
-
-            switch (args[0]) {
-                case "AAAService":
-                    userServiceTest.createUser();
-                    userServiceTest.updateUser();
-                    userServiceTest.getUserByName();
-                    userServiceTest.deleteUser();
-                    break;
-                case "AuditService":
-                    auditLevelServiceTest.addLevelIfNotExists();
-                    auditLevelServiceTest.listAuditLevels();
-                    auditLevelServiceTest.getAuditLevelByName();
-                    auditServiceTest.audit();
-                    auditServiceTest.getAuditLogs();
-                    break;
-                case "LexiconService":
-                    languageServiceTest.createLanguageIfNotExists();
-                    languageServiceTest.downloadLanguage(languageServiceTest.getLanguage().getId());
-                    languageServiceTest.deactivateLanguage();
-                    languageServiceTest.getLanguages();
-                    keyServiceTest.createKey();
-                    keyServiceTest.getTranslationsForLocale();
-                    break;
-                case "MailingService":
-                    mailServiceTest.queueEmail();
-                    internalMessageServiceTest.sendInternalMail();
-                    break;
-                case "RulesService":
-                    rulesServiceTest.fireActivateRulesFromResources();
-                    rulesServiceTest.fireDeactivateRulesFromResources();
-                    rulesServiceTest.statelessExecute(null);
-                    rulesServiceTest.createKnowledgeBase();
-                    rulesServiceTest.statelessExecuteGetResults();
-                    break;
-                case "SchedulerService":
-                    schedulerServiceTest.listAllJobs();
-                    schedulerServiceTest.scheduleJobs();
-                    schedulerServiceTest.triggerJob();
-                    schedulerServiceTest.deleteJob();
-                    break;
-                case "SearchService":
-                    if (adminServiceTest.checkIsUp()) {
-                        adminServiceTest.createIndex();
-                        adminServiceTest.openAndCloseIndex();
-
-                        indexingServiceTest.indexDocument();
-                        indexingServiceTest.indexByRepo();
-
-                        indexingServiceTest.deleteFromRepo();
-                        indexingServiceTest.unindexDocument();
-
-                        searchServiceTest.searchUsingRepository();
-                        searchServiceTest.searchQueryRange();
-                    } else {
-                        System.out.println("Elastic cluster is down.");
-                    }
-                    break;
-                case "SettingsService":
-                    settingsServiceTest.createSetting();
-                    settingsServiceTest.getSettings();
-                    break;
-                case "WorkflowService":
-                    workflowServiceTest.startWorkflowInstance();
-                    workflowTaskServiceTest.testProcedure();
-                    workflowServiceTest.getProcessInstancesByProcessId();
-                    workflowServiceTest.getProcessHistory("two-tasks-process");
-                    workflowServiceTest.updateProcessesFromResources();
-                    break;
-                default:
-                    System.out.println("Service " + args[0] + " is not found :(");
-            }
-        }
-
-        SpringApplication.exit(context);
-        System.exit(0);
-    }
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public BCryptPasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 }

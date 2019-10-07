@@ -20,22 +20,22 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 public class Account implements Serializable {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(nullable = false, length = 36)
-    private String id;
+  @Id
+  @GeneratedValue(generator = "uuid")
+  @GenericGenerator(name = "uuid", strategy = "uuid2")
+  @Column(nullable = false, length = 36)
+  private String id;
 
-    private Integer balance;
+  private Integer balance;
 
-    @Enumerated(EnumType.ORDINAL)
-    private AccountStatus status;
+  @Enumerated(EnumType.ORDINAL)
+  private AccountStatus status;
 
-    public void deposit(int ammount) {
-        balance += ammount;
-    }
+  public void deposit(int ammount) {
+    balance += ammount;
+  }
 
-    public void withdraw(int ammount) {
-        balance -= ammount;
-    }
+  public void withdraw(int ammount) {
+    balance -= ammount;
+  }
 }

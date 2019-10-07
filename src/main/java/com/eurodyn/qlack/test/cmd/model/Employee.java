@@ -20,18 +20,18 @@ import org.hibernate.annotations.GenericGenerator;
 @ToString
 public class Employee {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(nullable = false, length = 36)
-    private String id;
+  @Id
+  @GeneratedValue(generator = "uuid")
+  @GenericGenerator(name = "uuid", strategy = "uuid2")
+  @Column(nullable = false, length = 36)
+  private String id;
 
-    @Column(name="first_name", nullable = false)
-    private String firstName;
+  @Column(name = "first_name", nullable = false)
+  private String firstName;
 
-    @Column(name="last_name", nullable = false)
-    private String lastName;
+  @Column(name = "last_name", nullable = false)
+  private String lastName;
 
-    @Column(nullable = false)
-    private int age;
+  @Column(nullable = false)
+  private int age;
 }

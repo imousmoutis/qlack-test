@@ -17,69 +17,70 @@ import org.springframework.stereotype.Service;
 @Service
 public class LanguageServiceTest {
 
-    private LanguageService languageService;
+  private LanguageService languageService;
 
-    @Autowired
-    public LanguageServiceTest(LanguageService languageService) {
-        this.languageService = languageService;
+  @Autowired
+  public LanguageServiceTest(LanguageService languageService) {
+    this.languageService = languageService;
+  }
+
+  public String createLanguageIfNotExists() {
+    System.out.println("******************");
+    System.out.println("Testing createLanguageIfNotExists method");
+    String languageId = null;
+    try {
+      languageId = languageService.createLanguageIfNotExists(createLanguageDTO());
+      System.out.println("Language ith id " + languageId + " has been created.");
+
+    } catch (QAlreadyExistsException e) {
+      System.out.println(e.getMessage());
+
     }
 
-    public String createLanguageIfNotExists() {
-        System.out.println("******************");
-        System.out.println("Testing createLanguageIfNotExists method");
-        String languageId = null;
-        try {
-            languageId = languageService.createLanguageIfNotExists(createLanguageDTO());
-            System.out.println("Language ith id " + languageId + " has been created.");
+    System.out.println("******************");
+    return languageId;
+  }
 
-        } catch (QAlreadyExistsException e) {
-            System.out.println(e.getMessage());
+  public LanguageDTO getLanguage() {
+    return languageService.getLanguageByLocale("en");
+  }
 
-        }
-
-        System.out.println("******************");
-        return languageId;
+  public void downloadLanguage(String languageId) {
+    System.out.println("******************");
+    System.out.println("Testing downloadLanguage method");
+    byte[] bytes = languageService.downloadLanguage(languageId);
+    Path resourceDirectory = Paths.get("target", "eng_translations_generated.xls");
+    try {
+      Files.write(resourceDirectory, bytes);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+    System.out.println("******************");
+  }
 
-    public LanguageDTO getLanguage() {
-        return languageService.getLanguageByLocale("en");
-    }
+  public void deactivateLanguage() {
+    System.out.println("******************");
+    System.out.println("Testing deactivateLanguage method");
+    languageService.deactivateLanguage(languageService.getLanguageByLocale("gr").getId());
+    System.out.println("******************");
+  }
 
-    public void downloadLanguage(String languageId) {
-        System.out.println("******************");
-        System.out.println("Testing downloadLanguage method");
-        byte[] bytes = languageService.downloadLanguage(languageId);
-        Path resourceDirectory = Paths.get("target", "eng_translations_generated.xls");
-        try {
-            Files.write(resourceDirectory, bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("******************");
-    }
+  public void getLanguages() {
+    System.out.println("******************");
+    System.out.println("Testing getLanguages method");
+    List<LanguageDTO> languages = languageService.getLanguages(true);
+    System.out.println("Language status: ");
+    languages.forEach(languageDTO -> System.out
+        .println(languageDTO.getName() + " is active: " + languageDTO.isActive()));
+    System.out.println("******************");
+  }
 
-    public void deactivateLanguage() {
-        System.out.println("******************");
-        System.out.println("Testing deactivateLanguage method");
-        languageService.deactivateLanguage(languageService.getLanguageByLocale("gr").getId());
-        System.out.println("******************");
-    }
-
-    public void getLanguages() {
-        System.out.println("******************");
-        System.out.println("Testing getLanguages method");
-        List<LanguageDTO> languages = languageService.getLanguages(true);
-        System.out.println("Language status: ");
-        languages.forEach(languageDTO -> System.out.println(languageDTO.getName() + " is active: " + languageDTO.isActive()));
-        System.out.println("******************");
-    }
-
-    private LanguageDTO createLanguageDTO() {
-        LanguageDTO languageDTO = new LanguageDTO();
-        languageDTO.setLocale("gr");
-        languageDTO.setName("Greek");
-        languageDTO.setActive(true);
-        return languageDTO;
-    }
+  private LanguageDTO createLanguageDTO() {
+    LanguageDTO languageDTO = new LanguageDTO();
+    languageDTO.setLocale("gr");
+    languageDTO.setName("Greek");
+    languageDTO.setActive(true);
+    return languageDTO;
+  }
 
 }

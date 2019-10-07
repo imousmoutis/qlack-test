@@ -7,7 +7,8 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AccountRepository<T extends Account, I extends Serializable> extends JpaRepository<T, I>, QuerydslPredicateExecutor<T> {
+public interface AccountRepository<T extends Account, I extends Serializable> extends
+    JpaRepository<T, I>, QuerydslPredicateExecutor<T> {
 
 }
 

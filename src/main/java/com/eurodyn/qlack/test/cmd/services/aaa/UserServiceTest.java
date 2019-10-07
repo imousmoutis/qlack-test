@@ -13,115 +13,115 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceTest {
 
-    private final UserService userService;
+  private final UserService userService;
 
-    private final String USERNAME = "ioannis.mousmoutis";
+  private final String USERNAME = "ioannis.mousmoutis";
 
-    private final UserDTO userDTO = createUserDTO();
+  private final UserDTO userDTO = createUserDTO();
 
-    @Autowired
-    public UserServiceTest(UserService userServiceService) {
-        this.userService = userServiceService;
+  @Autowired
+  public UserServiceTest(UserService userServiceService) {
+    this.userService = userServiceService;
+  }
+
+  public void createUser() {
+    System.out.println("******************");
+    System.out.println("Testing createUser method.");
+    UserDTO existingUser = userService.getUserByName(USERNAME);
+
+    if (existingUser == null) {
+      String userId = userService.createUser(userDTO, Optional.of(""));
+      System.out.println("User with id " + userId + " has been created.");
+    } else {
+      System.out.println("User " + USERNAME + " already exists.");
+    }
+    System.out.println("******************");
+  }
+
+  public void updateUser() {
+    System.out.println("******************");
+    System.out.println("Testing updateUser method.");
+    UserDTO existingUser = userService.getUserByName(USERNAME);
+
+    existingUser.setPassword("newpassword");
+
+    existingUser.setSuperadmin(false);
+    for (UserAttributeDTO u : existingUser.getUserAttributes()) {
+      u.setData("updated " + u.getData());
+    }
+    if (existingUser.getUserAttributes().size() == 2) {
+      UserAttributeDTO userAttributeDTO = new UserAttributeDTO();
+      userAttributeDTO.setName("email");
+      userAttributeDTO.setData("ioannis.mousmoutis@eurodyn.com");
+      userAttributeDTO.setUserId(existingUser.getId());
+      existingUser.getUserAttributes().add(userAttributeDTO);
     }
 
-    public void createUser() {
-        System.out.println("******************");
-        System.out.println("Testing createUser method.");
-        UserDTO existingUser = userService.getUserByName(USERNAME);
+    userService.updateUser(existingUser, true, true);
+    System.out.println("User is updated.");
+    System.out.println("******************");
+  }
 
-        if (existingUser == null) {
-            String userId = userService.createUser(userDTO, Optional.of(""));
-            System.out.println("User with id " + userId + " has been created.");
-        } else {
-            System.out.println("User " + USERNAME + " already exists.");
-        }
-        System.out.println("******************");
-    }
+  public void deleteUser() {
+    System.out.println("******************");
+    System.out.println("Testing deleteUser method.");
 
-    public void updateUser() {
-        System.out.println("******************");
-        System.out.println("Testing updateUser method.");
-        UserDTO existingUser = userService.getUserByName(USERNAME);
+    UserDTO existingUser = userService.getUserByName(USERNAME);
+    userService.deleteUser(existingUser.getId());
 
-        existingUser.setPassword("newpassword");
+    System.out.println("User is deleted.");
+    System.out.println("******************");
+  }
 
-        existingUser.setSuperadmin(false);
-        for (UserAttributeDTO u : existingUser.getUserAttributes()) {
-            u.setData("updated " + u.getData());
-        }
-        if (existingUser.getUserAttributes().size() == 2) {
-            UserAttributeDTO userAttributeDTO = new UserAttributeDTO();
-            userAttributeDTO.setName("email");
-            userAttributeDTO.setData("ioannis.mousmoutis@eurodyn.com");
-            userAttributeDTO.setUserId(existingUser.getId());
-            existingUser.getUserAttributes().add(userAttributeDTO);
-        }
+  private void getUserById(String userId) {
+    System.out.println("******************");
+    System.out.println("Testing getUserById method.");
 
-        userService.updateUser(existingUser, true, true);
-        System.out.println("User is updated.");
-        System.out.println("******************");
-    }
+    UserDTO existingUser = userService.getUserById(userId);
 
-    public void deleteUser() {
-        System.out.println("******************");
-        System.out.println("Testing deleteUser method.");
+    System.out.println("Found user is " + existingUser.getUsername());
+    System.out.println("******************");
+  }
 
-        UserDTO existingUser = userService.getUserByName(USERNAME);
-        userService.deleteUser(existingUser.getId());
+  public void getUserByName() {
+    System.out.println("******************");
+    System.out.println("Testing getUserByName method.");
 
-        System.out.println("User is deleted.");
-        System.out.println("******************");
-    }
+    UserDTO existingUser = userService.getUserByName(USERNAME);
 
-    private void getUserById(String userId) {
-        System.out.println("******************");
-        System.out.println("Testing getUserById method.");
+    System.out.println("Found user is " + existingUser.getUsername());
 
-        UserDTO existingUser = userService.getUserById(userId);
+    System.out.println("******************");
+    getUserById(existingUser.getId());
+  }
 
-        System.out.println("Found user is " + existingUser.getUsername());
-        System.out.println("******************");
-    }
+  private List<UserAttributeDTO> createUserAttributesDTO() {
+    List<UserAttributeDTO> userAttributesDTO = new ArrayList<>();
 
-    public void getUserByName() {
-        System.out.println("******************");
-        System.out.println("Testing getUserByName method.");
+    UserAttributeDTO userAttributeDTO = new UserAttributeDTO();
+    userAttributeDTO.setName("fullName");
+    userAttributeDTO.setData("Ioannis Mousmoutis");
+    userAttributeDTO.setContentType("text");
+    userAttributesDTO.add(userAttributeDTO);
 
-        UserDTO existingUser = userService.getUserByName(USERNAME);
+    UserAttributeDTO userAttributeDTO2 = new UserAttributeDTO();
+    userAttributeDTO2.setName("company");
+    userAttributeDTO2.setData("European Dynamics");
+    userAttributeDTO2.setContentType("text");
+    userAttributesDTO.add(userAttributeDTO2);
 
-        System.out.println("Found user is " + existingUser.getUsername());
+    return userAttributesDTO;
+  }
 
-        System.out.println("******************");
-        getUserById(existingUser.getId());
-    }
+  private UserDTO createUserDTO() {
+    UserDTO userDTO = new UserDTO();
+    userDTO.setUsername(USERNAME);
+    userDTO.setPassword("thisisaverysecurepassword");
+    userDTO.setStatus((byte) 1);
+    userDTO.setSuperadmin(true);
+    userDTO.setExternal(false);
+    userDTO.setUserAttributes(new HashSet<>(createUserAttributesDTO()));
 
-    private List<UserAttributeDTO> createUserAttributesDTO() {
-        List<UserAttributeDTO> userAttributesDTO = new ArrayList<>();
-
-        UserAttributeDTO userAttributeDTO = new UserAttributeDTO();
-        userAttributeDTO.setName("fullName");
-        userAttributeDTO.setData("Ioannis Mousmoutis");
-        userAttributeDTO.setContentType("text");
-        userAttributesDTO.add(userAttributeDTO);
-
-        UserAttributeDTO userAttributeDTO2 = new UserAttributeDTO();
-        userAttributeDTO2.setName("company");
-        userAttributeDTO2.setData("European Dynamics");
-        userAttributeDTO2.setContentType("text");
-        userAttributesDTO.add(userAttributeDTO2);
-
-        return userAttributesDTO;
-    }
-
-    private UserDTO createUserDTO() {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUsername(USERNAME);
-        userDTO.setPassword("thisisaverysecurepassword");
-        userDTO.setStatus((byte) 1);
-        userDTO.setSuperadmin(true);
-        userDTO.setExternal(false);
-        userDTO.setUserAttributes(new HashSet<>(createUserAttributesDTO()));
-
-        return userDTO;
-    }
+    return userDTO;
+  }
 }

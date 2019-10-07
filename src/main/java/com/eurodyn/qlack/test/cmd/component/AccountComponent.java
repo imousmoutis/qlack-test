@@ -9,15 +9,15 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 @Component
-@Scope(proxyMode= ScopedProxyMode.TARGET_CLASS)
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class AccountComponent implements Serializable {
 
-    @Autowired
-    private AccountRepository accountRepository;
+  @Autowired
+  private AccountRepository accountRepository;
 
-    public void save(Account account) {
+  public void save(Account account) {
 
-        accountRepository.save(account);
-    }
+    accountRepository.save(account);
+  }
 
 }

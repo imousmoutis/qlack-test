@@ -12,8 +12,9 @@ import org.quartz.JobExecutionException;
 @Log
 public class LoggerJob implements Job {
 
-    @Override
-    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        log.info(jobExecutionContext.getJobInstance() + " : executed at " + jobExecutionContext.getFireTime());
-    }
+  @Override
+  public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+    log.info(jobExecutionContext.getJobInstance() + " : executed at " + jobExecutionContext
+        .getFireTime());
+  }
 }

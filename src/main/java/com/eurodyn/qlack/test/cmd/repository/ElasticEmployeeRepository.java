@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ElasticEmployeeRepository extends ElasticsearchRepository<EmployeeDTO, String> {
-    List<EmployeeDTO> findByAge(int age);
-    List<EmployeeDTO> findByFirstName(String name);
+
+  List<EmployeeDTO> findByAge(int age);
+
+  List<EmployeeDTO> findByFirstName(String name);
 }

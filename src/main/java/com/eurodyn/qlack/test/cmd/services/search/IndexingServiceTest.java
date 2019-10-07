@@ -19,76 +19,76 @@ import org.springframework.stereotype.Service;
 @Service
 public class IndexingServiceTest {
 
-    private IndexingService indexingService;
-    private EmployeeRepository employeeRepository;
-    private ElasticEmployeeRepository elasticEmployeeRepository;
-    private EmployeeMapper employeeMapper;
+  private IndexingService indexingService;
+  private EmployeeRepository employeeRepository;
+  private ElasticEmployeeRepository elasticEmployeeRepository;
+  private EmployeeMapper employeeMapper;
 
 
-    @Autowired
-    public IndexingServiceTest(IndexingService indexingService, EmployeeRepository employeeRepository,
-        ElasticEmployeeRepository elasticEmployeeRepository, EmployeeMapper employeeMapper) {
-        this.indexingService = indexingService;
-        this.employeeRepository = employeeRepository;
-        this.elasticEmployeeRepository = elasticEmployeeRepository;
-        this.employeeMapper = employeeMapper;
-    }
+  @Autowired
+  public IndexingServiceTest(IndexingService indexingService, EmployeeRepository employeeRepository,
+      ElasticEmployeeRepository elasticEmployeeRepository, EmployeeMapper employeeMapper) {
+    this.indexingService = indexingService;
+    this.employeeRepository = employeeRepository;
+    this.elasticEmployeeRepository = elasticEmployeeRepository;
+    this.employeeMapper = employeeMapper;
+  }
 
-    public void indexDocument() {
-        System.out.println("******************");
-        System.out.println("Testing createIndex method.");
+  public void indexDocument() {
+    System.out.println("******************");
+    System.out.println("Testing createIndex method.");
 
-        List<Employee> employees = employeeRepository.findAll();
+    List<Employee> employees = employeeRepository.findAll();
 
-        employees.stream().forEach(e -> {
-            EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(e);
-            IndexingDTO indexingDTO = new IndexingDTO();
-            indexingDTO.setSourceObject(employeeDTO);
-            indexingDTO.setIndex("employee");
-            indexingDTO.setType("employee");
-            indexingDTO.setId(employeeDTO.getId());
-            indexingService.indexDocument(indexingDTO);
-        });
+    employees.stream().forEach(e -> {
+      EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(e);
+      IndexingDTO indexingDTO = new IndexingDTO();
+      indexingDTO.setSourceObject(employeeDTO);
+      indexingDTO.setIndex("employee");
+      indexingDTO.setType("employee");
+      indexingDTO.setId(employeeDTO.getId());
+      indexingService.indexDocument(indexingDTO);
+    });
 
-        System.out.println("******************");
-    }
+    System.out.println("******************");
+  }
 
-    public void indexByRepo() {
-        System.out.println("******************");
-        System.out.println("Testing createIndex method with repository");
-        EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(createEmployee());
-        elasticEmployeeRepository.save(employeeDTO);
-        System.out.println("******************");
-    }
+  public void indexByRepo() {
+    System.out.println("******************");
+    System.out.println("Testing createIndex method with repository");
+    EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(createEmployee());
+    elasticEmployeeRepository.save(employeeDTO);
+    System.out.println("******************");
+  }
 
-    public void unindexDocument() {
-        System.out.println("******************");
-        System.out.println("Testing deleteIndex method.");
+  public void unindexDocument() {
+    System.out.println("******************");
+    System.out.println("Testing deleteIndex method.");
 
-        ESDocumentIdentifierDTO dto = new ESDocumentIdentifierDTO();
+    ESDocumentIdentifierDTO dto = new ESDocumentIdentifierDTO();
 
-        dto.setId("d1278f33-3656-42d4-8085-2352c96ae234");
-        dto.setType("employee");
-        dto.setIndex("employee");
+    dto.setId("d1278f33-3656-42d4-8085-2352c96ae234");
+    dto.setType("employee");
+    dto.setIndex("employee");
 
-        indexingService.unindexDocument(dto);
+    indexingService.unindexDocument(dto);
 
-        System.out.println("******************");
-    }
+    System.out.println("******************");
+  }
 
-    public void deleteFromRepo() {
-        EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(createEmployee());
-        elasticEmployeeRepository.delete(employeeDTO);
-    }
+  public void deleteFromRepo() {
+    EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(createEmployee());
+    elasticEmployeeRepository.delete(employeeDTO);
+  }
 
-    private Employee createEmployee() {
-        Employee employee = new Employee();
-        employee.setFirstName("John");
-        employee.setLastName("Doe");
-        employee.setAge(42);
-        employee.setId("1239d1d2b-a26d-4ed1-9b85-9009d596942a");
+  private Employee createEmployee() {
+    Employee employee = new Employee();
+    employee.setFirstName("John");
+    employee.setLastName("Doe");
+    employee.setAge(42);
+    employee.setId("1239d1d2b-a26d-4ed1-9b85-9009d596942a");
 
-        return employee;
-    }
+    return employee;
+  }
 
 }
