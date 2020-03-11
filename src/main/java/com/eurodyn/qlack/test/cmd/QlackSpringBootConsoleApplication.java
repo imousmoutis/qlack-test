@@ -63,7 +63,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
     "com.eurodyn.qlack.fuse.search",
     "com.eurodyn.qlack.fuse.security",
     "com.eurodyn.qlack.fuse.workflow",
-    "com.eurodyn.qlack.test.cmd"
+    "com.eurodyn.qlack.test.cmd",
+    "com.eurodyn.qlack.fuse.crypto.service"
 })
 
 @EnableElasticsearchRepositories({
@@ -193,7 +194,6 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
             indexingServiceTest.deleteFromRepo();
             indexingServiceTest.unindexDocument();
 
-            searchServiceTest.searchUsingRepository();
             searchServiceTest.searchQueryRange();
           } else {
             System.out.println("Elastic cluster is down.");

@@ -1,34 +1,68 @@
 {
-   "employee":{
-      "dynamic": false,
-      "properties":{
-         "firstName":{
-            "type":"text",
-            "fields":{
-               "keyword":{
-                  "type":"keyword"
-               }
+  "employee": {
+    "dynamic": false,
+    "properties": {
+      "firstName": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "lastName": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "id": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "age": {
+        "type": "long",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "weight": {
+        "type": "long",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "car": {
+        "type": "nested",
+        "properties": {
+          "make": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
             }
-         },
-         "lastName":{
-            "type":"text",
-            "fields":{
-               "keyword":{
-                  "type":"keyword"
-               }
+          },
+          "model": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
             }
-         },
-         "id":{
-            "type":"text",
-            "fields":{
-               "keyword":{
-                  "type":"keyword"
-               }
-            }
-         },
-         "age":{
-            "type":"long"
-         }
+          }
+        }
       }
-   }
+    }
+  }
 }
