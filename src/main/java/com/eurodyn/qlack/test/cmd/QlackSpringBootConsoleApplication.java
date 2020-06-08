@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
@@ -74,35 +75,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class QlackSpringBootConsoleApplication implements CommandLineRunner {
 
   private final ConfigurableApplicationContext context;
-
   private final UserServiceTest userServiceTest;
-
   private final AuditServiceTest auditServiceTest;
-
   private final AuditLevelServiceTest auditLevelServiceTest;
-
   private final SettingsServiceTest settingsServiceTest;
-
   private final MailServiceTest mailServiceTest;
-
   private final InternalMessageServiceTest internalMessageServiceTest;
-
   private final LanguageServiceTest languageServiceTest;
-
   private final KeyServiceTest keyServiceTest;
-
   private final AdminServiceTest adminServiceTest;
-
   private final IndexingServiceTest indexingServiceTest;
-
   private final SearchServiceTest searchServiceTest;
-
   private final SchedulerServiceTest schedulerServiceTest;
-
   private final RulesServiceTest rulesServiceTest;
-
   private final WorkflowServiceTest workflowServiceTest;
-
   private final WorkflowTaskServiceTest workflowTaskServiceTest;
 
   @Autowired
@@ -136,6 +122,7 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
   public static void main(String[] args) {
     SpringApplication app = new SpringApplication(QlackSpringBootConsoleApplication.class);
     app.setBannerMode(Banner.Mode.OFF);
+    app.setWebApplicationType(WebApplicationType.NONE);
     app.run(args);
   }
 
