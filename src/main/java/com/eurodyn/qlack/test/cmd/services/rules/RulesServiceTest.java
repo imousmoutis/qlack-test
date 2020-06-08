@@ -49,7 +49,7 @@ public class RulesServiceTest {
     this.knowledgeBaseService = knowledgeBaseService;
     this.knowledgeSessionService = knowledgeSessionService;
     this.kieContainer = kieContainer;
-    this.accounts = this.accountRepository.findAll();
+    this.accounts = accountRepository.findAll();
   }
 
   public void fireActivateRulesFromResources() {
