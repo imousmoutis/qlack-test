@@ -1,0 +1,19 @@
+version: '3.7'
+
+networks:
+  qlacktest:
+
+services:
+  qlacktest-db:
+    image: mysql:5.7
+    hostname: qlacktest-db
+    container_name: qlacktest-db
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=qlacktest
+      - MYSQL_PASSWORD=password
+    ports:
+      - 3306:3306
+    networks:
+      - qlacktest
