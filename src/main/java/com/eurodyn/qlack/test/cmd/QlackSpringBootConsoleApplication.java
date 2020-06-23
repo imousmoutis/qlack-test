@@ -158,11 +158,9 @@ public class QlackSpringBootConsoleApplication implements CommandLineRunner {
           internalMessageServiceTest.sendInternalMail();
           break;
         case "RulesService":
-          rulesServiceTest.fireActivateRulesFromResources();
-          rulesServiceTest.fireDeactivateRulesFromResources();
-          rulesServiceTest.statelessExecute(null);
-          rulesServiceTest.createKnowledgeBase();
-          rulesServiceTest.statelessExecuteGetResults();
+          rulesServiceTest.createDmnModel();
+          rulesServiceTest.findDmnModel();
+          rulesServiceTest.executeRules();
           break;
         case "SchedulerService":
           schedulerServiceTest.listAllJobs();
